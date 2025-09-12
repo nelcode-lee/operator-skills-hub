@@ -1,0 +1,215 @@
+{
+  "learning_content": {
+    "title": "Operator Skills Hub Learning Content Library",
+    "version": "1.0.0",
+    "last_updated": "2025-09-11",
+    "description": "Comprehensive learning materials for construction industry training",
+    "categories": {
+      "health_safety": {
+        "title": "Health & Safety",
+        "description": "Core health and safety training for construction workers",
+        "courses": [
+          {
+            "id": "cscs-health-safety-awareness",
+            "title": "CSCS Health & Safety Awareness",
+            "file": "cscs-health-safety-awareness.md",
+            "duration_hours": 8,
+            "difficulty": "beginner",
+            "topics": [
+              "Legal framework and regulations",
+              "Common construction hazards",
+              "Personal protective equipment",
+              "Risk assessment process",
+              "Emergency procedures",
+              "Health and safety management"
+            ],
+            "learning_objectives": 5,
+            "assessment_points": 5,
+            "practical_exercises": 3
+          },
+          {
+            "id": "first-aid-emergency-response",
+            "title": "First Aid & Emergency Response",
+            "file": "first-aid-emergency-response.md",
+            "duration_hours": 4,
+            "difficulty": "beginner",
+            "topics": [
+              "Basic life support and CPR",
+              "Common construction injuries",
+              "Emergency procedures",
+              "First aid equipment",
+              "Assessment and treatment"
+            ],
+            "learning_objectives": 5,
+            "assessment_points": 5,
+            "practical_exercises": 5
+          }
+        ]
+      },
+      "technical_skills": {
+        "title": "Technical Skills",
+        "description": "Technical training for construction equipment and operations",
+        "courses": [
+          {
+            "id": "construction-equipment-operation",
+            "title": "Construction Equipment Operation",
+            "file": "construction-equipment-operation.md",
+            "duration_hours": 12,
+            "difficulty": "intermediate",
+            "topics": [
+              "Equipment types and applications",
+              "Pre-operational checks",
+              "Safe operating procedures",
+              "Hazard recognition and control",
+              "Communication and signalling",
+              "Maintenance and inspection"
+            ],
+            "learning_objectives": 5,
+            "assessment_points": 5,
+            "practical_exercises": 4
+          }
+        ]
+      },
+      "management_leadership": {
+        "title": "Management & Leadership",
+        "description": "Management and leadership training for construction supervisors",
+        "courses": [
+          {
+            "id": "site-management-leadership",
+            "title": "Site Management & Leadership",
+            "file": "site-management-leadership.md",
+            "duration_hours": 16,
+            "difficulty": "advanced",
+            "topics": [
+              "Site management responsibilities",
+              "Leadership principles and styles",
+              "Project planning and scheduling",
+              "Health and safety management",
+              "Team management and communication",
+              "Quality management and risk management"
+            ],
+            "learning_objectives": 5,
+            "assessment_points": 5,
+            "practical_exercises": 5
+          }
+        ]
+      },
+      "environmental": {
+        "title": "Environmental",
+        "description": "Environmental compliance and sustainability training",
+        "courses": [
+          {
+            "id": "environmental-compliance",
+            "title": "Environmental Compliance",
+            "file": "environmental-compliance.md",
+            "duration_hours": 6,
+            "difficulty": "intermediate",
+            "topics": [
+              "Environmental legislation",
+              "Environmental management systems",
+              "Waste management",
+              "Pollution prevention",
+              "Environmental monitoring",
+              "Reporting requirements"
+            ],
+            "learning_objectives": 5,
+            "assessment_points": 5,
+            "practical_exercises": 5
+          }
+        ]
+      }
+    },
+    "assessment_templates": {
+      "title": "Assessment Templates",
+      "description": "NOCN compliant assessment and tracking templates",
+      "templates": [
+        {
+          "id": "unit-achievement-record",
+          "title": "Unit Achievement Record",
+          "file": "unit-achievement-record.md",
+          "purpose": "Track overall progress across all units",
+          "usage": "Portfolio front page"
+        },
+        {
+          "id": "learner-evidence-record",
+          "title": "Learner Evidence Record",
+          "file": "learner-evidence-record.md",
+          "purpose": "Map evidence to assessment criteria",
+          "usage": "Evidence mapping and tracking"
+        },
+        {
+          "id": "unit-assessment-feedback-form",
+          "title": "Unit Assessment and Feedback Form",
+          "file": "unit-assessment-feedback-form.md",
+          "purpose": "Record summative feedback for each unit",
+          "usage": "Unit completion and feedback"
+        },
+        {
+          "id": "record-of-observation",
+          "title": "Record of Observation",
+          "file": "record-of-observation.md",
+          "purpose": "Document observed learner performance",
+          "usage": "Practical assessments"
+        },
+        {
+          "id": "witness-statement",
+          "title": "Witness Statement",
+          "file": "witness-statement.md",
+          "purpose": "Third-party verification of competence",
+          "usage": "Indirect assessment verification"
+        },
+        {
+          "id": "question-answer-record",
+          "title": "Question and Answer Record",
+          "file": "question-answer-record.md",
+          "purpose": "Document oral assessment sessions",
+          "usage": "Q&A assessments"
+        },
+        {
+          "id": "portfolio-feedback-form",
+          "title": "Portfolio Feedback Form",
+          "file": "portfolio-feedback-form.md",
+          "purpose": "Overall portfolio assessment and certification",
+          "usage": "Final portfolio review"
+        }
+      ]
+    },
+    "statistics": {
+      "total_courses": 4,
+      "total_duration_hours": 46,
+      "total_learning_objectives": 20,
+      "total_assessment_points": 20,
+      "total_practical_exercises": 17,
+      "total_assessment_templates": 7,
+      "difficulty_distribution": {
+        "beginner": 2,
+        "intermediate": 2,
+        "advanced": 1
+      }
+    },
+    "rag_integration": {
+      "chunking_strategy": "heading_based",
+      "metadata_fields": [
+        "course_id",
+        "category",
+        "difficulty",
+        "duration_hours",
+        "learning_objectives",
+        "topics",
+        "assessment_points"
+      ],
+      "search_optimization": [
+        "structured_headings",
+        "consistent_terminology",
+        "cross_references",
+        "practical_examples"
+      ]
+    },
+    "usage_instructions": {
+      "upload_process": "Upload markdown files to courses via instructor dashboard",
+      "processing": "Content automatically processed and indexed by RAG system",
+      "ai_generation": "AI can generate additional materials based on this content",
+      "student_access": "Students access both original and AI-enhanced materials"
+    }
+  }
+}

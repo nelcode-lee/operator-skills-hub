@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Web Content</title>
+</head>
+<body>
+    <h1>Debug Web Content API</h1>
+    <div id="result"></div>
+    
+    <script>
+        async function testWebContent() {
+            try {
+                // First, get a token
+                const tokenResponse = await fetch('http://localhost:8000/api/auth/token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'username=john.doe@example.com&password=password123'
+                });
+                
+                const tokenData = await tokenResponse.json();
+                console.log('Token:', tokenData);
+                
+                // Now test web content
+                const webContentResponse = await fetch('http://localhost:8000/api/courses/2/web-content', {
+                    headers: {
+                        'Authorization': `Bearer ${tokenData.access_token}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                console.log('Web content status:', webContentResponse.status);
+                const webContentData = await webContentResponse.json();
+                console.log('Web content data:', webContentData);
+                
+                document.getElementById('result').innerHTML = `
+                    <h2>Success!</h2>
+                    <p>Title: ${webContentData.title}</p>
+                    <p>Sections: ${webContentData.sections.length}</p>
+                    <p>First section: ${webContentData.sections[0].title}</p>
+                `;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('result').innerHTML = `<h2>Error:</h2><p>${error.message}</p>`;
+            }
+        }
+        
+        testWebContent();
+    </script>
+</body>
+</html>
+
+
+

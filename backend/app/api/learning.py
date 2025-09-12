@@ -1,0 +1,167 @@
+"""
+Learning and progress tracking API endpoints.
+"""
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List
+
+from ..core.database import get_db
+from ..models.learning import Enrollment, LearningSession, Assessment
+from ..models.course import Course, CourseModule, CourseContent, CourseFileContent
+from ..api.auth import get_current_user
+
+router = APIRouter()
+
+
+@router.get("/enrollments")
+async def get_user_enrollments(
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    """Get current user's course enrollments."""
+    from sqlalchemy.orm import joinedload
+    enrollments = db.query(Enrollment).options(joinedload(Enrollment.course)).filter(Enrollment.user_id == current_user.id).all()
+    return enrollments
+
+
+@router.post("/enrollments/{course_id}")
+async def enroll_in_course(
+    course_id: int,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    """Enroll in a course - STUDENTS CANNOT SELF-ENROLL. Only admin/instructor can grant access."""
+    # Students cannot self-enroll - they must be authorized by admin/instructor
+    if current_user.role == "student":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Students cannot self-enroll. Please contact your instructor or admin to be granted access to this course."
+        )
+    
+    # Only admin/instructor can enroll students
+    if current_user.role not in ["admin", "instructor"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only admin or instructor can enroll students in courses"
+        )
+    
+    # Check if course exists
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Course not found"
+        )
+    
+    # For instructors, check if they own the course
+    if current_user.role == "instructor" and course.instructor_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only enroll students in your own courses"
+        )
+    
+    # This endpoint now requires a student_id parameter for admin/instructor to enroll students
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Use the course management endpoints to enroll students in courses"
+    )
+
+
+@router.get("/courses/{course_id}/modules")
+async def get_course_modules(
+    course_id: int,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    """Get course modules for enrolled students."""
+    # Check if user is enrolled in the course
+    enrollment = db.query(Enrollment).filter(
+        Enrollment.user_id == current_user.id,
+        Enrollment.course_id == course_id
+    ).first()
+    
+    if not enrollment:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You are not enrolled in this course"
+        )
+    
+    # Get course modules
+    modules = db.query(CourseModule).filter(
+        CourseModule.course_id == course_id
+    ).all()
+    
+    return modules
+
+
+@router.get("/courses/{course_id}/content")
+async def get_course_content(
+    course_id: int,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    """Get course content for enrolled students."""
+    # Check if user is enrolled in the course
+    enrollment = db.query(Enrollment).filter(
+        Enrollment.user_id == current_user.id,
+        Enrollment.course_id == course_id
+    ).first()
+    
+    if not enrollment:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You are not enrolled in this course"
+        )
+    
+    # Get course content files
+    content_files = db.query(CourseFileContent).filter(
+        CourseFileContent.course_id == course_id,
+        CourseFileContent.is_active == True
+    ).all()
+    
+    return content_files
+
+
+@router.get("/courses/{course_id}/content/{content_id}/view")
+async def view_course_content(
+    course_id: int,
+    content_id: int,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user)
+):
+    """View course content for enrolled students."""
+    # Check if user is enrolled in the course
+    enrollment = db.query(Enrollment).filter(
+        Enrollment.user_id == current_user.id,
+        Enrollment.course_id == course_id
+    ).first()
+    
+    if not enrollment:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You are not enrolled in this course"
+        )
+    
+    # Get content file
+    content = db.query(CourseFileContent).filter(
+        CourseFileContent.id == content_id,
+        CourseFileContent.course_id == course_id,
+        CourseFileContent.is_active == True
+    ).first()
+    
+    if not content:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Content not found"
+        )
+    
+    return {
+        "content_id": content.id,
+        "title": content.title,
+        "description": content.description,
+        "content_type": content.content_type,
+        "file_path": content.file_path,
+        "page_count": content.page_count,
+        "viewer_url": f"/api/courses/{course_id}/content/{content_id}/pdf-viewer"
+    }
+
