@@ -22,9 +22,30 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379"
     
     # Security
-    secret_key: str = "your-secret-key-change-in-production"
+    secret_key: str = "your-secret-key-change-in-production"  # MUST be changed in production
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
+    refresh_token_expire_days: int = 7
+    
+    # Security Settings
+    password_min_length: int = 8
+    password_require_uppercase: bool = True
+    password_require_lowercase: bool = True
+    password_require_numbers: bool = True
+    password_require_special_chars: bool = True
+    
+    # Rate Limiting
+    rate_limit_requests: int = 100
+    rate_limit_window_minutes: int = 15
+    
+    # File Upload Security
+    max_file_size_mb: int = 10
+    allowed_file_types: list = ["application/pdf", "image/jpeg", "image/png", "image/gif", "text/plain"]
+    
+    # Session Security
+    session_timeout_minutes: int = 30
+    max_login_attempts: int = 5
+    lockout_duration_minutes: int = 15
     
     # AI Integration
     openai_api_key: Optional[str] = None

@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 
 from .core.config import settings
 from .core.database import create_tables
-from .api import auth, courses, users, learning, ai, course_management, user_profiles, content_management, instructor_ai, pdf_serve, student_learning, student_enrollment, assessments, learning_analytics, course_requests, web_content, image_serve, course_images, messaging, analytics, time_tracking
+from .api import auth, courses, users, learning, ai, course_management, user_profiles, content_management, instructor_ai, pdf_serve, student_learning, student_enrollment, assessments, learning_analytics, course_requests, web_content, image_serve, course_images, messaging, analytics, time_tracking, security
 
 # Import all models to ensure they are registered with SQLAlchemy
 from .models import user, course, learning as learning_models, course_request, messaging as messaging_models, analytics as analytics_models
@@ -32,19 +32,35 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# Add CORS middleware
+# Add CORS middleware with enhanced security
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001", "https://operatorskillshub.com", "*"],
+    allow_origins=[
+        "http://localhost:3000", 
+        "http://localhost:3001", 
+        "https://operatorskillshub.com",
+        "https://www.operatorskillshub.com"
+    ],  # Removed wildcard "*" for security
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],  # Specific methods only
+    allow_headers=[
+        "Authorization", 
+        "Content-Type", 
+        "X-Requested-With",
+        "X-CSRF-Token"
+    ],  # Specific headers only
+    expose_headers=["X-Total-Count", "X-Page-Count"]
 )
 
-# Add trusted host middleware
+# Add trusted host middleware with enhanced security
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["localhost", "127.0.0.1", "operatorskillshub.com", "*.operatorskillshub.com", "*"]
+    allowed_hosts=[
+        "localhost", 
+        "127.0.0.1", 
+        "operatorskillshub.com", 
+        "www.operatorskillshub.com"
+    ]  # Removed wildcard "*" for security
 )
 
 # Include API routers
@@ -69,6 +85,7 @@ app.include_router(course_images.router, prefix="/api", tags=["Course Images"])
 app.include_router(messaging.router, prefix="/api/messaging", tags=["Messaging & Q&A"])
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics & Reporting"])
 app.include_router(time_tracking.router, prefix="/api/time-tracking", tags=["Time Tracking"])
+app.include_router(security.router, prefix="/api/security", tags=["Security"])
 
 
 @app.get("/")
