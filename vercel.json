@@ -9,16 +9,10 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "frontend/$1"
+      "dest": "/frontend/$1"
     }
   ],
   "env": {
     "NEXT_PUBLIC_API_URL": "@next_public_api_url"
-  },
-  "functions": {
-    "frontend/src/app/**/*.tsx": {
-      "maxDuration": 30
-    }
-  },
-  "outputDirectory": "frontend/.next"
+  }
 }

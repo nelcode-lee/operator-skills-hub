@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Production optimizations
-  output: 'standalone',
+  // output: 'standalone', // Commented out for Vercel compatibility
   compress: true,
   poweredByHeader: false,
   
