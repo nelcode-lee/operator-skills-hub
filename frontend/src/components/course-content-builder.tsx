@@ -574,6 +574,218 @@ export default function CourseContentBuilder({ courseId, onContentUpdate }: Cour
             </form>
           </div>
 
+          {/* Prompt Examples Section */}
+          <div className="bg-blue-50 rounded-lg p-6">
+            <h3 className="text-lg font-semibold text-blue-900 mb-4">💡 RAG AI Prompt Examples</h3>
+            <p className="text-blue-800 mb-4">
+              Use these examples to get the most out of the RAG AI system. The AI will analyze your uploaded documents and generate content based on your specific requirements.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Learning Materials */}
+              <div className="bg-white rounded-lg p-4 border border-blue-200">
+                <h4 className="font-semibold text-gray-900 mb-2">📚 Learning Materials</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="bg-gray-50 p-2 rounded text-gray-700 relative group">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <strong>Title:</strong> "Safety Procedures for Excavator Operations"<br/>
+                        <strong>Description:</strong> "Create a comprehensive guide covering pre-operation checks, safe operating procedures, and emergency protocols for excavator operators based on the uploaded manual."
+                      </div>
+                      <button
+                        onClick={() => {
+                          setGenerationRequest({
+                            ...generationRequest,
+                            title: "Safety Procedures for Excavator Operations",
+                            description: "Create a comprehensive guide covering pre-operation checks, safe operating procedures, and emergency protocols for excavator operators based on the uploaded manual."
+                          });
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700"
+                      >
+                        Use
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 p-2 rounded text-gray-700 relative group">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <strong>Title:</strong> "Understanding Load Charts and Stability"<br/>
+                        <strong>Description:</strong> "Generate an educational module explaining how to read load charts, calculate safe lifting capacities, and maintain stability during crane operations."
+                      </div>
+                      <button
+                        onClick={() => {
+                          setGenerationRequest({
+                            ...generationRequest,
+                            title: "Understanding Load Charts and Stability",
+                            description: "Generate an educational module explaining how to read load charts, calculate safe lifting capacities, and maintain stability during crane operations."
+                          });
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700"
+                      >
+                        Use
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Lesson Plans */}
+              <div className="bg-white rounded-lg p-4 border border-blue-200">
+                <h4 className="font-semibold text-gray-900 mb-2">📋 Lesson Plans</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="bg-gray-50 p-2 rounded text-gray-700 relative group">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <strong>Title:</strong> "2-Hour Practical Training Session"<br/>
+                        <strong>Description:</strong> "Design a hands-on lesson plan for teaching proper excavator bucket techniques, including objectives, activities, and assessment criteria."
+                      </div>
+                      <button
+                        onClick={() => {
+                          setGenerationRequest({
+                            ...generationRequest,
+                            title: "2-Hour Practical Training Session",
+                            description: "Design a hands-on lesson plan for teaching proper excavator bucket techniques, including objectives, activities, and assessment criteria.",
+                            content_type: "lesson_plan"
+                          });
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700"
+                      >
+                        Use
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 p-2 rounded text-gray-700 relative group">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <strong>Title:</strong> "Classroom Theory on GPS Machine Control"<br/>
+                        <strong>Description:</strong> "Create a structured lesson covering GPS fundamentals, machine control systems, and practical applications for construction equipment."
+                      </div>
+                      <button
+                        onClick={() => {
+                          setGenerationRequest({
+                            ...generationRequest,
+                            title: "Classroom Theory on GPS Machine Control",
+                            description: "Create a structured lesson covering GPS fundamentals, machine control systems, and practical applications for construction equipment.",
+                            content_type: "lesson_plan"
+                          });
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700"
+                      >
+                        Use
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Knowledge Tests */}
+              <div className="bg-white rounded-lg p-4 border border-blue-200">
+                <h4 className="font-semibold text-gray-900 mb-2">🧠 Knowledge Tests</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="bg-gray-50 p-2 rounded text-gray-700 relative group">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <strong>Title:</strong> "Excavator Safety Assessment"<br/>
+                        <strong>Description:</strong> "Generate 20 multiple-choice questions testing knowledge of excavator safety procedures, maintenance requirements, and operational best practices."
+                      </div>
+                      <button
+                        onClick={() => {
+                          setGenerationRequest({
+                            ...generationRequest,
+                            title: "Excavator Safety Assessment",
+                            description: "Generate 20 multiple-choice questions testing knowledge of excavator safety procedures, maintenance requirements, and operational best practices.",
+                            content_type: "knowledge_test"
+                          });
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700"
+                      >
+                        Use
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 p-2 rounded text-gray-700 relative group">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <strong>Title:</strong> "Load Chart Interpretation Quiz"<br/>
+                        <strong>Description:</strong> "Create practical questions requiring students to interpret load charts, calculate safe working loads, and identify stability factors."
+                      </div>
+                      <button
+                        onClick={() => {
+                          setGenerationRequest({
+                            ...generationRequest,
+                            title: "Load Chart Interpretation Quiz",
+                            description: "Create practical questions requiring students to interpret load charts, calculate safe working loads, and identify stability factors.",
+                            content_type: "knowledge_test"
+                          });
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700"
+                      >
+                        Use
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Advanced Prompts */}
+              <div className="bg-white rounded-lg p-4 border border-blue-200">
+                <h4 className="font-semibold text-gray-900 mb-2">⚡ Advanced Prompts</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="bg-gray-50 p-2 rounded text-gray-700 relative group">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <strong>Title:</strong> "Troubleshooting Guide"<br/>
+                        <strong>Description:</strong> "Create a step-by-step troubleshooting guide for common excavator hydraulic issues, including symptoms, causes, and solutions."
+                      </div>
+                      <button
+                        onClick={() => {
+                          setGenerationRequest({
+                            ...generationRequest,
+                            title: "Troubleshooting Guide",
+                            description: "Create a step-by-step troubleshooting guide for common excavator hydraulic issues, including symptoms, causes, and solutions."
+                          });
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700"
+                      >
+                        Use
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 p-2 rounded text-gray-700 relative group">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <strong>Title:</strong> "Site-Specific Risk Assessment"<br/>
+                        <strong>Description:</strong> "Generate a template for conducting risk assessments on construction sites, including hazard identification and control measures."
+                      </div>
+                      <button
+                        onClick={() => {
+                          setGenerationRequest({
+                            ...generationRequest,
+                            title: "Site-Specific Risk Assessment",
+                            description: "Generate a template for conducting risk assessments on construction sites, including hazard identification and control measures."
+                          });
+                        }}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-blue-600 text-white px-2 py-1 rounded text-xs hover:bg-blue-700"
+                      >
+                        Use
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 p-4 bg-blue-100 rounded-lg">
+              <h4 className="font-semibold text-blue-900 mb-2">💡 Pro Tips for Better Results:</h4>
+              <ul className="text-sm text-blue-800 space-y-1">
+                <li>• <strong>Be specific:</strong> Include details about target audience, difficulty level, and learning objectives</li>
+                <li>• <strong>Use context:</strong> Reference specific sections or topics from your uploaded documents</li>
+                <li>• <strong>Set requirements:</strong> Specify format, length, or specific elements you want included</li>
+                <li>• <strong>Add instructions:</strong> Use the "Additional Instructions" field for specific formatting or content requirements</li>
+              </ul>
+            </div>
+          </div>
+
           {/* Generated Content List */}
           <div className="bg-white rounded-lg shadow">
             <div className="px-6 py-4 border-b border-gray-200">

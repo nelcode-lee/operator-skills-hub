@@ -11,7 +11,7 @@ const courses = [
     students: 2500,
     rating: 4.9,
     price: "From £200",
-    image: "/images/equipment/forward-tipping-dumper.png",
+    image: "/images/equipment/forward-tipping-dumper.webp",
     video: "/videos/courses/plant-training.mp4",
     category: "Plant Training",
     description: "CPCS and NPORS plant training and technical tests for excavator, roller, dumpers, dozer, telehandler and wheeled loading shovels.",
@@ -24,7 +24,7 @@ const courses = [
     students: 3200,
     rating: 4.8,
     price: "£150",
-    image: "/images/courses/H&S.jpg",
+    image: "/images/courses/H&S.webp",
     video: "/videos/courses/plant-training.mp4",
     category: "Health & Safety",
     description: "Designed to keep people safe on site, covering topics including the people plant interface. Delivered on site or at the Hub.",
@@ -50,7 +50,7 @@ const courses = [
     students: 1200,
     rating: 4.7,
     price: "From £250",
-    image: "/images/equipment/utility-detection.jpg",
+    image: "/images/courses/streetworks.jpg",
     video: "/videos/courses/plant-training.mp4",
     category: "Utility Detection",
     description: "Range of utility detection, mapping and safe digging practice training at our world-class detection facility.",
@@ -60,7 +60,7 @@ const courses = [
 
 export function Courses() {
   return (
-    <section className="py-20 bg-slate-50">
+    <section id="featured-courses" className="py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
@@ -81,6 +81,9 @@ export function Courses() {
                   alt={course.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                  loading="lazy"
+                  quality={85}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/40 group-hover:to-transparent transition-all duration-300"></div>
                 <div className="absolute top-4 left-4">
@@ -146,10 +149,12 @@ export function Courses() {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg" className="border-teal-700 text-teal-700 hover:bg-teal-50">
-            View All Courses
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
+          <Link href="/courses">
+            <Button variant="outline" size="lg" className="border-teal-700 text-teal-700 hover:bg-teal-50">
+              View All Courses
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

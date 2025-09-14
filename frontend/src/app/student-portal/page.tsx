@@ -194,6 +194,25 @@ export default function StudentPortal() {
     loadStudentData();
   };
 
+  const handleJoinCourse = async (courseId: number) => {
+    try {
+      // Find the course details
+      const course = courses.find(c => c.id === courseId);
+      if (!course) return;
+
+      // Load course content first
+      await loadCourseContent(courseId);
+      
+      // Set as selected course to show content
+      setSelectedCourse(course);
+      
+      // Navigate to the course content or open in new tab
+      window.open(`/student-portal/course/${courseId}`, '_blank');
+    } catch (err) {
+      setError('Failed to join course');
+    }
+  };
+
   const startLearningSession = async (contentId: number) => {
     try {
       const response = await fetch(`${api.baseUrl}/api/learning/sessions/start`, {
@@ -442,10 +461,7 @@ export default function StudentPortal() {
                   {courses.filter(c => c.status === 'active').map((course) => (
                     <div key={course.id} 
                          className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 border rounded-lg hover:bg-gray-50 cursor-pointer touch-manipulation"
-                         onClick={() => {
-                           setSelectedCourse(course);
-                           loadCourseContent(course.id);
-                         }}>
+                         onClick={() => handleJoinCourse(course.id)}>
                       <div className="flex items-start sm:items-center space-x-3 mb-3 sm:mb-0">
                         <BookOpen className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5 sm:mt-0" />
                         <div className="min-w-0 flex-1">
@@ -529,10 +545,7 @@ export default function StudentPortal() {
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {courses.map((course) => (
                   <Card key={course.id} className="hover:shadow-lg transition-shadow cursor-pointer"
-                        onClick={() => {
-                          setSelectedCourse(course);
-                          loadCourseContent(course.id);
-                        }}>
+                        onClick={() => handleJoinCourse(course.id)}>
                     <CardHeader>
                       <div className="flex items-start space-x-3">
                         <div className="flex-shrink-0">
@@ -582,11 +595,11 @@ export default function StudentPortal() {
                             className="w-full" 
                             onClick={(e) => {
                               e.stopPropagation();
-                              window.location.href = `/learning/${course.id}`;
+                              handleJoinCourse(course.id);
                             }}
                           >
                             <BookOpen className="h-4 w-4 mr-2" />
-                            Start Learning
+                            {course.status === 'active' ? 'Continue Learning' : 'Start Learning'}
                           </Button>
                         </div>
                       </div>

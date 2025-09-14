@@ -5,33 +5,32 @@ const accreditations = [
   {
     name: "CPCS",
     description: "Construction Plant Competence Scheme",
-    icon: Award
+    icon: Award,
+    image: "/images/courses/cpcs logo.png"
   },
   {
     name: "NPORS",
     description: "National Plant Operators Registration Scheme",
-    icon: Shield
+    icon: Shield,
+    image: "/images/courses/NPOrs-logo.jpg"
   },
   {
     name: "CITB",
     description: "Construction Industry Training Board",
     icon: CheckCircle,
-    image: "/images/courses/CITB.jpeg"
+    image: "/images/courses/CITB_logo.svg.png"
   },
   {
     name: "NOCN",
     description: "National Open College Network",
-    icon: Star
+    icon: Star,
+    image: "/images/courses/nocn.png"
   },
   {
     name: "EUSR",
     description: "Energy & Utility Skills Register",
-    icon: Award
-  },
-  {
-    name: "SHEA",
-    description: "Safety, Health & Environment Awareness",
-    icon: Shield
+    icon: Award,
+    image: "/images/courses/eusr.png"
   }
 ]
 
@@ -49,20 +48,23 @@ export function Accreditations() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {accreditations.map((accreditation, index) => (
             <div key={index} className="text-center group">
-              <div className="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-teal-200 transition-colors overflow-hidden">
+              <div className="w-24 h-24 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300">
                 {accreditation.image ? (
                   <Image
                     src={accreditation.image}
                     alt={accreditation.name}
-                    width={32}
-                    height={32}
-                    className="w-8 h-8 object-contain"
+                    width={80}
+                    height={80}
+                    className="object-contain"
+                    loading="lazy"
+                    quality={90}
+                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 20vw"
                   />
                 ) : (
-                  <accreditation.icon className="w-8 h-8 text-teal-700" />
+                  <accreditation.icon className="w-12 h-12 text-teal-700" />
                 )}
               </div>
               <h3 className="text-lg font-semibold text-slate-800 mb-1">

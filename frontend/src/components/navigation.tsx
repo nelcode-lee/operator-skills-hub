@@ -88,7 +88,7 @@ export default function Navigation({ currentPath = '/' }: NavigationProps) {
       ],
       instructor: [
         { href: '/instructors', label: 'Instructor Dashboard', icon: BarChart3 },
-        { href: '/courses', label: 'Manage Courses', icon: HardHat },
+        { href: '/instructors#courses-section', label: 'Manage Courses', icon: HardHat },
         { href: '/students', label: 'Students', icon: Users },
         { href: '/analytics', label: 'Analytics', icon: BarChart3 },
         { href: '/schedule', label: 'Schedule', icon: Calendar },
@@ -205,16 +205,6 @@ export default function Navigation({ currentPath = '/' }: NavigationProps) {
                         Instructor Dashboard
                       </Link>
                     )}
-                    
-                    <div className="border-t">
-                      <button
-                        onClick={handleLogout}
-                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                      >
-                        <LogOut className="w-4 h-4 mr-2" />
-                        Sign Out
-                      </button>
-                    </div>
                   </div>
                 )}
               </div>
@@ -289,12 +279,12 @@ export default function Navigation({ currentPath = '/' }: NavigationProps) {
                       </Button>
                     </Link>
                     <Button
-                      variant="ghost"
-                      className="w-full justify-start text-red-600 hover:text-red-700"
+                      variant="outline"
+                      className="w-full justify-start text-gray-600 hover:text-gray-900"
                       onClick={handleLogout}
                     >
                       <LogOut className="w-4 h-4 mr-2" />
-                      Sign Out
+                      Logout
                     </Button>
                   </div>
                 ) : (

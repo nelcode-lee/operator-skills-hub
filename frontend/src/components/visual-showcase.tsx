@@ -68,58 +68,6 @@ export function VisualShowcase() {
         </div>
 
 
-        {/* Student Testimonials */}
-        <div className="bg-gradient-to-r from-teal-50 to-blue-50 rounded-2xl p-8 md:p-12">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
-              Hear from Our Students
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Read testimonials from students who have transformed their careers through our training programmes.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
-              <div className="aspect-w-16 aspect-h-9 bg-gradient-to-br from-teal-100 to-blue-100 flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-2xl font-bold">SJ</span>
-                  </div>
-                  <h3 className="font-semibold text-slate-800 text-lg">Sarah Johnson</h3>
-                  <p className="text-sm text-slate-600 mb-3">Plant Operative Apprentice</p>
-                  <p className="text-sm text-slate-700 italic">"The training was exceptional. I gained confidence and skills that opened new career opportunities."</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
-              <div className="aspect-w-16 aspect-h-9 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-2xl font-bold">MT</span>
-                  </div>
-                  <h3 className="font-semibold text-slate-800 text-lg">Mike Thompson</h3>
-                  <p className="text-sm text-slate-600 mb-3">Crane Operator</p>
-                  <p className="text-sm text-slate-700 italic">"Professional training with real-world scenarios. Highly recommend to anyone in construction."</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow bg-white">
-              <div className="aspect-w-16 aspect-h-9 bg-gradient-to-br from-green-100 to-teal-100 flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-2xl font-bold">ED</span>
-                  </div>
-                  <h3 className="font-semibold text-slate-800 text-lg">Emma Davis</h3>
-                  <p className="text-sm text-slate-600 mb-3">Utility Detection Specialist</p>
-                  <p className="text-sm text-slate-700 italic">"Outstanding facilities and expert instructors. The course exceeded all my expectations."</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )

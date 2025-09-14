@@ -591,7 +591,7 @@ export default function InstructorsPage() {
             ]}
             className="mb-4"
           />
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
             <div className="flex items-center space-x-4">
               <BookOpen className="h-8 w-8 text-blue-600" />
               <div>
@@ -692,7 +692,7 @@ export default function InstructorsPage() {
               <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4">
                 <Button onClick={() => setShowUploadModal(true)}>
                   <Upload className="h-4 w-4 mr-2" />
                   Upload PDF Course
@@ -730,7 +730,7 @@ export default function InstructorsPage() {
         </div>
 
         {/* Courses Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div id="courses-section" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {courses.map((course) => (
             <Card 
               key={course.id} 

@@ -454,21 +454,23 @@ export default function MessagingInterface({ userRole, currentUserId }: Messagin
                 }}
               >
                 <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-2 sm:space-y-0">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center space-x-2 mb-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-2 mb-1">
                         <h4 className="font-medium truncate">{message.subject}</h4>
-                        {!message.is_read && (
-                          <div className="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0"></div>
-                        )}
-                        {message.course_title && (
-                          <Badge variant="outline" className="text-xs">
-                            {message.course_title}
-                          </Badge>
-                        )}
+                        <div className="flex items-center space-x-2">
+                          {!message.is_read && (
+                            <div className="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0"></div>
+                          )}
+                          {message.course_title && (
+                            <Badge variant="outline" className="text-xs">
+                              {message.course_title}
+                            </Badge>
+                          )}
+                        </div>
                       </div>
                       <p className="text-sm text-gray-600 truncate">{message.content}</p>
-                      <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500">
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 mt-2 text-xs text-gray-500">
                         <span>From: {message.sender_name}</span>
                         <span>To: {message.recipient_name}</span>
                         <span>{new Date(message.created_at).toLocaleDateString()}</span>
@@ -480,7 +482,7 @@ export default function MessagingInterface({ userRole, currentUserId }: Messagin
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2 ml-4">
+                    <div className="flex items-center space-x-2 sm:ml-4">
                       {message.is_archived && (
                         <Archive className="h-4 w-4 text-gray-400" />
                       )}
@@ -506,8 +508,8 @@ export default function MessagingInterface({ userRole, currentUserId }: Messagin
             {filteredQAPosts.map((post) => (
               <Card key={post.id} className="hover:shadow-md transition-shadow">
                 <CardContent className="p-4">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex flex-col items-center space-y-2">
+                  <div className="flex flex-col sm:flex-row sm:items-start space-y-4 sm:space-y-0 sm:space-x-4">
+                    <div className="flex flex-row sm:flex-col items-center space-x-4 sm:space-x-0 sm:space-y-2">
                       <Button
                         variant="ghost"
                         size="sm"
@@ -527,22 +529,24 @@ export default function MessagingInterface({ userRole, currentUserId }: Messagin
                       </Button>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center space-x-2 mb-2">
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-2 mb-2">
                         <h4 className="font-medium truncate">{post.title}</h4>
-                        {post.is_pinned && (
-                          <Badge variant="secondary" className="text-xs">Pinned</Badge>
-                        )}
-                        {post.is_resolved && (
-                          <Badge variant="default" className="text-xs bg-green-100 text-green-800">
-                            Resolved
+                        <div className="flex flex-wrap gap-1">
+                          {post.is_pinned && (
+                            <Badge variant="secondary" className="text-xs">Pinned</Badge>
+                          )}
+                          {post.is_resolved && (
+                            <Badge variant="default" className="text-xs bg-green-100 text-green-800">
+                              Resolved
+                            </Badge>
+                          )}
+                          <Badge variant="outline" className="text-xs">
+                            {post.post_type}
                           </Badge>
-                        )}
-                        <Badge variant="outline" className="text-xs">
-                          {post.post_type}
-                        </Badge>
+                        </div>
                       </div>
                       <p className="text-sm text-gray-600 line-clamp-2 mb-2">{post.content}</p>
-                      <div className="flex items-center space-x-4 text-xs text-gray-500">
+                      <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 text-xs text-gray-500">
                         <span>By: {post.author_name}</span>
                         <span>Course: {post.course_title}</span>
                         <span className="flex items-center space-x-1">
@@ -584,33 +588,35 @@ export default function MessagingInterface({ userRole, currentUserId }: Messagin
                 }`}
               >
                 <CardContent className="p-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0">
-                      {notification.notification_type === 'message' && (
-                        <MessageSquare className="h-5 w-5 text-blue-600" />
-                      )}
-                      {notification.notification_type === 'qa_reply' && (
-                        <BookOpen className="h-5 w-5 text-green-600" />
-                      )}
-                      {notification.notification_type === 'course_update' && (
-                        <AlertCircle className="h-5 w-5 text-orange-600" />
-                      )}
-                      {notification.notification_type === 'system' && (
-                        <Bell className="h-5 w-5 text-gray-600" />
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-medium">{notification.title}</h4>
-                      <p className="text-sm text-gray-600 mt-1">{notification.content}</p>
-                      <div className="flex items-center space-x-4 mt-2 text-xs text-gray-500">
-                        <span>{new Date(notification.created_at).toLocaleDateString()}</span>
-                        {notification.course_title && (
-                          <span>Course: {notification.course_title}</span>
+                  <div className="flex flex-col sm:flex-row sm:items-start space-y-2 sm:space-y-0 sm:space-x-3">
+                    <div className="flex items-start space-x-3 flex-1 min-w-0">
+                      <div className="flex-shrink-0">
+                        {notification.notification_type === 'message' && (
+                          <MessageSquare className="h-5 w-5 text-blue-600" />
                         )}
+                        {notification.notification_type === 'qa_reply' && (
+                          <BookOpen className="h-5 w-5 text-green-600" />
+                        )}
+                        {notification.notification_type === 'course_update' && (
+                          <AlertCircle className="h-5 w-5 text-orange-600" />
+                        )}
+                        {notification.notification_type === 'system' && (
+                          <Bell className="h-5 w-5 text-gray-600" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-medium">{notification.title}</h4>
+                        <p className="text-sm text-gray-600 mt-1">{notification.content}</p>
+                        <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4 mt-2 text-xs text-gray-500">
+                          <span>{new Date(notification.created_at).toLocaleDateString()}</span>
+                          {notification.course_title && (
+                            <span>Course: {notification.course_title}</span>
+                          )}
+                        </div>
                       </div>
                     </div>
                     {!notification.is_read && (
-                      <div className="w-2 h-2 bg-orange-600 rounded-full flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-orange-600 rounded-full flex-shrink-0 self-start sm:self-auto"></div>
                     )}
                   </div>
                 </CardContent>

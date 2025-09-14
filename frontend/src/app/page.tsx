@@ -1,26 +1,26 @@
 import { Hero } from '@/components/hero'
 import { Features } from '@/components/features'
+import { Partners } from '@/components/partners'
 import { Courses } from '@/components/courses'
 import { Accreditations } from '@/components/accreditations'
 import { Testimonials } from '@/components/testimonials'
-import { VisualShowcase } from '@/components/visual-showcase'
 import { ProcessFlow } from '@/components/process-flow'
-import Navigation from '@/components/navigation'
+import Header from '@/components/header'
 import { Footer } from '@/components/footer'
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background">
-      <Navigation currentPath="/" />
-        <main>
-          <Hero />
-          <Features />
-          <Courses />
-          <VisualShowcase />
-          <ProcessFlow />
-          <Accreditations />
-          <Testimonials />
-        </main>
+      <Header />
+      <main>
+        <Hero />
+        <Partners />
+        <Features />
+        <Courses />
+        <ProcessFlow />
+        <Accreditations />
+        <Testimonials />
+      </main>
       <Footer />
     </div>
   )

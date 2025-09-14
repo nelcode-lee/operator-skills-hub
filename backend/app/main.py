@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 
 from .core.config import settings
 from .core.database import create_tables
-from .api import auth, courses, users, learning, ai, course_management, user_profiles, content_management, instructor_ai, pdf_serve, student_learning, student_enrollment, assessments, learning_analytics, course_requests, web_content, image_serve, course_images, messaging, analytics, time_tracking, security
+from .api import auth, courses, users, learning, ai, course_management, user_profiles, content_management, instructor_ai, pdf_serve, student_learning, student_enrollment, assessments, learning_analytics, course_requests, web_content, image_serve, course_images, messaging, analytics, time_tracking, security, schedule
 
 # Import all models to ensure they are registered with SQLAlchemy
 from .models import user, course, learning as learning_models, course_request, messaging as messaging_models, analytics as analytics_models
@@ -86,6 +86,7 @@ app.include_router(messaging.router, prefix="/api/messaging", tags=["Messaging &
 app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics & Reporting"])
 app.include_router(time_tracking.router, prefix="/api/time-tracking", tags=["Time Tracking"])
 app.include_router(security.router, prefix="/api/security", tags=["Security"])
+app.include_router(schedule.router, prefix="/api/schedule", tags=["Schedule & Events"])
 
 
 @app.get("/")

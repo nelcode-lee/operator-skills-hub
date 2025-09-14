@@ -17,7 +17,7 @@ class PasswordValidationResponse(BaseModel):
     is_valid: bool
     score: int = Field(..., ge=0, le=5)
     issues: List[str]
-    strength: str = Field(..., regex="^(weak|medium|strong)$")
+    strength: str = Field(..., pattern="^(weak|medium|strong)$")
 
 
 class SecuritySettingsUpdate(BaseModel):
@@ -35,7 +35,7 @@ class SecuritySettingsUpdate(BaseModel):
 class LoginAttempt(BaseModel):
     """Schema for login attempt tracking."""
     email: EmailStr
-    ip_address: str = Field(..., regex=r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
+    ip_address: str = Field(..., pattern=r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
     user_agent: Optional[str] = Field(None, max_length=500)
     success: bool
     timestamp: Optional[str] = None
@@ -46,10 +46,10 @@ class SecurityAuditLog(BaseModel):
     user_id: Optional[int] = None
     action: str = Field(..., max_length=100)
     resource: Optional[str] = Field(None, max_length=200)
-    ip_address: str = Field(..., regex=r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
+    ip_address: str = Field(..., pattern=r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
     user_agent: Optional[str] = Field(None, max_length=500)
     details: Optional[dict] = None
-    severity: str = Field(..., regex="^(low|medium|high|critical)$")
+    severity: str = Field(..., pattern="^(low|medium|high|critical)$")
     timestamp: Optional[str] = None
 
 
@@ -109,10 +109,10 @@ class SecurityMetrics(BaseModel):
 class SecurityAlert(BaseModel):
     """Schema for security alerts."""
     alert_id: str = Field(..., min_length=1, max_length=50)
-    type: str = Field(..., regex="^(brute_force|suspicious_activity|rate_limit|file_upload|sql_injection|xss)$")
-    severity: str = Field(..., regex="^(low|medium|high|critical)$")
+    type: str = Field(..., pattern="^(brute_force|suspicious_activity|rate_limit|file_upload|sql_injection|xss)$")
+    severity: str = Field(..., pattern="^(low|medium|high|critical)$")
     message: str = Field(..., max_length=500)
-    ip_address: str = Field(..., regex=r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
+    ip_address: str = Field(..., pattern=r"^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
     user_id: Optional[int] = None
     timestamp: str
     resolved: bool = False

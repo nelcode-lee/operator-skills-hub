@@ -20,10 +20,6 @@ export function Footer() {
             </p>
             <div className="space-y-2">
               <div className="flex items-center text-gray-300">
-                <Phone className="w-4 h-4 mr-2" />
-                <span>+44 121 123 4567</span>
-              </div>
-              <div className="flex items-center text-gray-300">
                 <Mail className="w-4 h-4 mr-2" />
                 <span>info@operatorskillshub.com</span>
               </div>

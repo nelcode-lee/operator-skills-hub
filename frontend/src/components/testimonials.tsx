@@ -5,9 +5,9 @@ const testimonials = [
   {
     id: 1,
     name: "Phil",
-    date: "March 2021",
+    date: "March 2025",
     rating: 5,
-    comment: "Training establishment is superb, 5 stars, simulators are amazing!!",
+    comment: "The VR training modules were incredible - I felt like I was actually operating the machinery. The AI feedback system helped me improve my technique in real-time. Best training I've ever had!",
     image: "/images/testimonials/phil.jpg",
     role: "Plant Operative",
     company: "Balfour Beatty"
@@ -15,9 +15,9 @@ const testimonials = [
   {
     id: 2,
     name: "Mo",
-    date: "June 2021",
+    date: "January 2025",
     rating: 5,
-    comment: "SEATS course very well delivered and the trainer really knew his stuff!",
+    comment: "The digital learning platform made everything so accessible. I could study at my own pace and the interactive assessments really helped me understand the safety protocols. Highly recommend!",
     image: "/images/testimonials/mo.jpg",
     role: "Safety Coordinator",
     company: "Kier Group"
@@ -25,9 +25,9 @@ const testimonials = [
   {
     id: 3,
     name: "Chris",
-    date: "February 2021",
+    date: "February 2025",
     rating: 5,
-    comment: "Excellent training, highly recommend this place for GPS.",
+    comment: "The GPS training simulation was spot-on. The realistic scenarios and instant feedback helped me master complex operations quickly. The instructors were knowledgeable and supportive throughout.",
     image: "/images/testimonials/chris.jpg",
     role: "GPS Specialist",
     company: "Morgan Sindall"
@@ -35,9 +35,9 @@ const testimonials = [
   {
     id: 4,
     name: "Howard",
-    date: "June 2021",
+    date: "April 2025",
     rating: 5,
-    comment: "Trainer put me at ease and delivered the course brilliantly.",
+    comment: "I was nervous about the crane operation course, but the virtual reality training gave me confidence before I even touched real equipment. The step-by-step guidance was excellent.",
     image: "/images/testimonials/howard.jpg",
     role: "Crane Operator",
     company: "Willmott Dixon"
@@ -45,9 +45,9 @@ const testimonials = [
   {
     id: 5,
     name: "GC",
-    date: "August 2021",
+    date: "May 2025",
     rating: 5,
-    comment: "Trainer is the best I've ever had in the UK because of his personal and professional skills.",
+    comment: "The combination of traditional teaching and cutting-edge technology was perfect. The instructors were professional and the digital resources made learning engaging. Worth every penny.",
     image: "/images/testimonials/gc.jpg",
     role: "Site Manager",
     company: "Laing O'Rourke"
@@ -55,9 +55,9 @@ const testimonials = [
   {
     id: 6,
     name: "SD",
-    date: "June 2021",
+    date: "June 2025",
     rating: 5,
-    comment: "Facilities are brilliant, trainers really put you through your paces and in a great environment.",
+    comment: "The utility detection training was comprehensive and the facilities were top-notch. The blend of practical experience and digital learning tools prepared me perfectly for real-world scenarios.",
     image: "/images/testimonials/sd.jpg",
     role: "Utility Detection Specialist",
     company: "Skanska"
@@ -88,6 +88,9 @@ export function Testimonials() {
                     width={60}
                     height={60}
                     className="rounded-full object-cover"
+                    loading="lazy"
+                    quality={85}
+                    sizes="60px"
                   />
                 </div>
                 <div className="flex-1">

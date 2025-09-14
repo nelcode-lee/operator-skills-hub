@@ -6,7 +6,8 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from ..core.database import get_db
-from ..models.user import User
+from ..models.user import User, UserProfile
+from ..models.learning import Enrollment
 from ..schemas.auth import UserResponse, UserCreate
 from ..api.auth import get_current_user
 from ..services.auth import get_password_hash
@@ -30,6 +31,95 @@ async def get_users(
     
     users = db.query(User).offset(skip).limit(limit).all()
     return users
+
+
+@router.get("/students")
+async def get_students(
+    page: int = 1,
+    limit: int = 10,
+    search: str = "",
+    status: str = "all",
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Get all students (instructor and admin only)."""
+    if current_user.role not in ["instructor", "admin"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not enough permissions"
+        )
+    
+    # Calculate offset
+    offset = (page - 1) * limit
+    
+    # Build query
+    query = db.query(User).filter(User.role == "student")
+    
+    # Apply search filter
+    if search:
+        query = query.filter(
+            User.email.ilike(f"%{search}%")
+        )
+    
+    # Apply status filter
+    if status == "active":
+        query = query.filter(User.is_active == True)
+    elif status == "inactive":
+        query = query.filter(User.is_active == False)
+    elif status == "verified":
+        query = query.filter(User.is_verified == True)
+    elif status == "unverified":
+        query = query.filter(User.is_verified == False)
+    
+    # Get total count
+    total = query.count()
+    
+    # Get students with pagination
+    students = query.offset(offset).limit(limit).all()
+    
+    # Build response with additional data
+    student_list = []
+    for student in students:
+        # Get user profile
+        profile = db.query(UserProfile).filter(UserProfile.user_id == student.id).first()
+        
+        # Get course enrollment count
+        course_count = db.query(Enrollment).filter(
+            Enrollment.user_id == student.id,
+            Enrollment.status == "active"
+        ).count()
+        
+        # Get completed courses count
+        completed_count = db.query(Enrollment).filter(
+            Enrollment.user_id == student.id,
+            Enrollment.status == "completed"
+        ).count()
+        
+        student_data = {
+            "id": student.id,
+            "email": student.email,
+            "role": student.role,
+            "is_active": student.is_active,
+            "is_verified": student.is_verified,
+            "created_at": student.created_at.isoformat(),
+                   "profile": {
+                       "first_name": profile.first_name if profile else None,
+                       "last_name": profile.last_name if profile else None,
+                       "phone_number": profile.phone if profile else None,
+                       "cscs_card_number": student.cscs_card_number
+                   },
+            "courses_count": course_count,
+            "completed_courses": completed_count
+        }
+        student_list.append(student_data)
+    
+    return {
+        "students": student_list,
+        "total": total,
+        "page": page,
+        "limit": limit,
+        "total_pages": (total + limit - 1) // limit
+    }
 
 
 @router.get("/lookup/email/{email}", response_model=UserResponse)
