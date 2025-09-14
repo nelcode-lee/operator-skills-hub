@@ -43,3 +43,6 @@ flake8
 
 # Environment
 python-dotenv
+
+# Railway deployment
+gunicorn>=20.1.0
