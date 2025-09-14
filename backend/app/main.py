@@ -38,17 +38,23 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000", 
         "http://localhost:3001", 
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3001",
         "https://operatorskillshub.com",
         "https://www.operatorskillshub.com"
-    ],  # Removed wildcard "*" for security
+    ],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],  # Specific methods only
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allow_headers=[
         "Authorization", 
         "Content-Type", 
         "X-Requested-With",
-        "X-CSRF-Token"
-    ],  # Specific headers only
+        "X-CSRF-Token",
+        "Accept",
+        "Origin",
+        "Access-Control-Request-Method",
+        "Access-Control-Request-Headers"
+    ],
     expose_headers=["X-Total-Count", "X-Page-Count"]
 )
 
@@ -68,7 +74,6 @@ app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 app.include_router(users.router, prefix="/api/users", tags=["Users"])
 app.include_router(user_profiles.router, prefix="/api/user-profiles", tags=["User Profiles"])
 app.include_router(courses.router, prefix="/api/courses", tags=["Courses"])
-app.include_router(learning.router, prefix="/api/learning", tags=["Learning"])
 app.include_router(ai.router, prefix="/api/ai", tags=["AI"])
 app.include_router(instructor_ai.router, prefix="/api/instructor-ai", tags=["Instructor AI"])
 app.include_router(pdf_serve.router, prefix="/api", tags=["PDF Serving"])

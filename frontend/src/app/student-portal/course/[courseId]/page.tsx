@@ -51,7 +51,7 @@ interface Content {
 export default function CoursePage() {
   const params = useParams();
   const router = useRouter();
-  const courseId = params.courseId as string;
+  const courseId = params?.courseId as string;
   
   const [course, setCourse] = useState<Course | null>(null);
   const [courseContent, setCourseContent] = useState<Content[]>([]);

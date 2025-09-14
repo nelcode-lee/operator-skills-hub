@@ -264,7 +264,7 @@ async def start_learning_session(
     session = LearningSession(
         user_id=current_user.id,
         course_id=content.course_id,
-        content_id=session_data.content_id,
+        duration_minutes=0,  # Will be updated when session ends
         started_at=datetime.utcnow()
     )
     
@@ -276,11 +276,11 @@ async def start_learning_session(
         id=session.id,
         user_id=session.user_id,
         course_id=session.course_id,
-        content_id=session.content_id,
+        content_id=session_data.content_id,
         started_at=session.started_at,
         ended_at=session.ended_at,
         duration_minutes=session.duration_minutes,
-        progress_percentage=session.progress_percentage
+        progress_percentage=0.0  # Will be calculated based on progress
     )
 
 
@@ -316,7 +316,10 @@ async def end_learning_session(
     # Update session
     session.ended_at = datetime.utcnow()
     session.duration_minutes = session_data.get("duration_minutes", 0)
-    session.progress_percentage = session_data.get("progress_percentage", 100)
+    # Store progress in session_data JSON field
+    if not session.session_data:
+        session.session_data = {}
+    session.session_data["progress_percentage"] = session_data.get("progress_percentage", 100)
     
     db.commit()
     db.refresh(session)
@@ -325,11 +328,11 @@ async def end_learning_session(
         id=session.id,
         user_id=session.user_id,
         course_id=session.course_id,
-        content_id=session.content_id,
+        content_id=session_data.get("content_id"),
         started_at=session.started_at,
         ended_at=session.ended_at,
         duration_minutes=session.duration_minutes,
-        progress_percentage=session.progress_percentage
+        progress_percentage=session.session_data.get("progress_percentage", 0.0) if session.session_data else 0.0
     )
 
 
@@ -356,14 +359,74 @@ async def get_my_sessions(
             id=session.id,
             user_id=session.user_id,
             course_id=session.course_id,
-            content_id=session.content_id,
+            content_id=None,  # Not stored in session model
             started_at=session.started_at,
             ended_at=session.ended_at,
             duration_minutes=session.duration_minutes,
-            progress_percentage=session.progress_percentage
+            progress_percentage=session.session_data.get("progress_percentage", 0.0) if session.session_data else 0.0
         )
         for session in sessions
     ]
+
+
+@router.get("/content/{content_id}/view")
+async def view_content(
+    content_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """View specific content - returns content details for the viewer."""
+    
+    if current_user.role != "student":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access denied. Student role required."
+        )
+    
+    # Get content
+    content = db.query(CourseFileContent).filter(
+        and_(
+            CourseFileContent.id == content_id,
+            CourseFileContent.is_active == True
+        )
+    ).first()
+    
+    if not content:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Content not found."
+        )
+    
+    # Check if student has access to this content
+    enrollment = db.query(Enrollment).filter(
+        and_(
+            Enrollment.user_id == current_user.id,
+            Enrollment.course_id == content.course_id,
+            Enrollment.status == "active"
+        )
+    ).first()
+    
+    if not enrollment:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You don't have access to this content."
+        )
+    
+    # Get course title
+    course = db.query(Course).filter(Course.id == content.course_id).first()
+    
+    return {
+        "content_id": content.id,
+        "title": content.title,
+        "description": content.description,
+        "content_type": content.content_type,
+        "file_path": content.file_path,
+        "page_count": content.page_count,
+        "course_id": content.course_id,
+        "course_title": course.title if course else "Unknown Course",
+        "viewer_url": f"/api/courses/{content.course_id}/content/{content_id}/pdf-viewer",
+        "download_url": f"/api/courses/{content.course_id}/content/{content_id}/download"
+    }
 
 
 @router.get("/progress", response_model=LearningProgressResponse)

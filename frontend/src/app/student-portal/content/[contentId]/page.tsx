@@ -76,7 +76,7 @@ interface ImageControls {
 export default function ContentViewer() {
   const params = useParams();
   const router = useRouter();
-  const contentId = params?.contentId as string;
+  const contentId = params?.contentId ? parseInt(params.contentId as string) : null;
   
   const [content, setContent] = useState<Content | null>(null);
   const [session, setSession] = useState<LearningSession | null>(null);
@@ -155,6 +155,12 @@ export default function ContentViewer() {
   }, [session]);
 
   const loadContent = async () => {
+    if (!contentId) {
+      setError('Invalid content ID');
+      setLoading(false);
+      return;
+    }
+    
     try {
       setLoading(true);
       const response = await fetch(`${api.baseUrl}/api/learning/content/${contentId}/view`, {
@@ -175,6 +181,8 @@ export default function ContentViewer() {
   };
 
   const startLearningSession = async () => {
+    if (!contentId) return;
+    
     try {
       const response = await fetch(`${api.baseUrl}/api/learning/sessions/start`, {
         method: 'POST',
@@ -183,7 +191,7 @@ export default function ContentViewer() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          content_id: parseInt(contentId)
+          content_id: contentId
         })
       });
 
@@ -392,7 +400,7 @@ export default function ContentViewer() {
             {/* PDF Viewer */}
             <div className="flex-1 overflow-auto">
               <iframe
-                src={api.courses.pdfViewer(content.course_id, content.id, localStorage.getItem('token') || undefined)}
+                src={api.courses.pdfViewer(content.course_id, content.id, localStorage.getItem('token') || '')}
                 className="w-full h-full border-0"
                 style={{ 
                   transform: `scale(${pdfControls.zoom / 100}) rotate(${pdfControls.rotation}deg)`,

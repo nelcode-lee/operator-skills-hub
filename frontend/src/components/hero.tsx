@@ -46,20 +46,13 @@ export function Hero() {
       <div className="relative z-10 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            {/* Main Headline - Better mobile typography */}
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>
-              Transform Construction{' '}
-              <br className="sm:hidden" />
-              <span className="text-teal-300">Training Forever</span>
+            {/* Main Headline - Larger and simplified */}
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 md:mb-8 leading-tight" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>
+              Welcome to the Operator Skills Hub
             </h1>
             
-            {/* Subtitle - Mobile optimized */}
-            <h2 className="text-lg sm:text-xl md:text-3xl font-semibold text-teal-200 mb-4 md:mb-6 px-2" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.7)'}}>
-              Welcome to the Operator Skills Hub
-            </h2>
-            
-            {/* Tagline - Mobile friendly */}
-            <p className="text-base sm:text-lg md:text-2xl text-white mb-8 md:mb-12 max-w-4xl mx-auto font-medium px-4" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.7)'}}>
+            {/* Tagline - Larger and more prominent */}
+            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white mb-8 md:mb-12 max-w-4xl mx-auto font-semibold px-4" style={{textShadow: '1px 1px 3px rgba(0,0,0,0.7)'}}>
               Transforming ambition into expertise
             </p>
             

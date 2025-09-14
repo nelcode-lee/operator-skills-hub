@@ -49,7 +49,7 @@ class LearningSessionResponse(BaseModel):
     id: int
     user_id: int
     course_id: int
-    content_id: int
+    content_id: Optional[int] = None
     started_at: datetime
     ended_at: Optional[datetime] = None
     duration_minutes: Optional[int] = None
