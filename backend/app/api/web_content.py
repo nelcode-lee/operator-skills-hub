@@ -26,7 +26,8 @@ async def get_course_web_content(
     from ..models.learning import Enrollment
     enrollment = db.query(Enrollment).filter(
         Enrollment.user_id == current_user.id,
-        Enrollment.course_id == course_id
+        Enrollment.course_id == course_id,
+        Enrollment.status == "active"
     ).first()
     
     if not enrollment:

@@ -33,11 +33,12 @@ import {
   Fullscreen
 } from 'lucide-react';
 import { api, getAuthHeaders } from '@/lib/api';
+import WebWorkbookViewer from '@/components/web-workbook-viewer';
 
 interface Content {
   id: number;
   title: string;
-  content_type: 'pdf' | 'video' | 'image' | 'interactive' | 'test';
+  content_type: 'pdf' | 'video' | 'image' | 'interactive' | 'test' | 'web_content';
   description: string;
   file_path?: string;
   duration_minutes?: number;
@@ -560,6 +561,16 @@ export default function ContentViewer() {
                 Start Test
               </Button>
             </div>
+          </div>
+        );
+
+      case 'web_content':
+        return (
+          <div className="w-full h-full">
+            <WebWorkbookViewer 
+              courseId={content.course_id} 
+              onClose={() => router.back()}
+            />
           </div>
         );
 
