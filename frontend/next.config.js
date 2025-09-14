@@ -1,23 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable automatic restart on config changes
-  onDemandEntries: {
-    // period (in ms) where the server will keep pages in the buffer
-    maxInactiveAge: 25 * 1000,
-    // number of pages that should be kept simultaneously without being disposed
-    pagesBufferLength: 2,
-  },
+  // Production optimizations
+  output: 'standalone',
+  compress: true,
+  poweredByHeader: false,
+  
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
+        protocol: 'https',
+        hostname: 'operatorskillshub.com',
         pathname: '/images/**',
       },
       {
         protocol: 'https',
-        hostname: 'operatorskillshub.com',
+        hostname: '*.vercel.app',
         pathname: '/images/**',
       },
     ],
@@ -28,9 +25,11 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://your-backend-domain.com',
   },
+  
   async headers() {
     return [
       {
@@ -57,10 +56,24 @@ const nextConfig = {
       },
     ]
   },
-  // Optimize for development stability
+  
+  // Vercel optimizations
   experimental: {
-    // Reduce unnecessary rebuilds
-    optimizeCss: false,
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+  },
+  
+  // Reduce bundle size
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+    return config;
   },
 }
 

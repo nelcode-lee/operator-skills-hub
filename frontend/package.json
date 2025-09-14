@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "build:vercel": "next build && next export",
+    "preview": "next build && next start"
   },
   "dependencies": {
     "@hookform/resolvers": "3.3.2",

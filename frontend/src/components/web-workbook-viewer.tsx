@@ -115,18 +115,20 @@ export default function WebWorkbookViewer({ courseId, onClose }: WebWorkbookView
   };
 
   const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen();
-      setIsFullscreen(false);
+    if (typeof document !== 'undefined') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen?.();
+        setIsFullscreen(true);
+      } else {
+        document.exitFullscreen?.();
+        setIsFullscreen(false);
+      }
     }
   };
 
   const downloadWorkbook = () => {
     // Create a downloadable version of the workbook
-    if (!content) return;
+    if (!content || typeof window === 'undefined') return;
     
     const workbookText = content.sections.map((section, index) => 
       `Section ${index + 1}: ${section.title}\n\n${section.content}\n\n`
