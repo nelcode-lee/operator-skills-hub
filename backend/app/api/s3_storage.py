@@ -9,7 +9,7 @@ import uuid
 from datetime import datetime
 
 from app.core.s3 import s3_manager
-from app.auth_simple import get_current_user
+from app.core.auth_shared import get_current_user
 
 router = APIRouter(prefix="/api/storage", tags=["storage"])
 
