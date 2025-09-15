@@ -248,6 +248,13 @@ if AI_AVAILABLE:
         """Get AI service status."""
         return {"message": "AI services available", "status": "ready"}
 
+# Include S3 storage router
+try:
+    from .api.s3_storage import router as s3_router
+    app.include_router(s3_router)
+except ImportError:
+    pass
+
 # Fallback endpoints for missing features
 @app.get("/api/courses")
 async def get_courses_fallback():

@@ -12,5 +12,8 @@ gunicorn
 sqlalchemy
 psycopg2-binary
 
+# AWS S3 Storage
+boto3
+
 # Note: AI/ML packages excluded for faster deployment
 # Full functionality available in local environment
