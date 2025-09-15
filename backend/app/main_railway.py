@@ -1,7 +1,7 @@
 """
 FastAPI app for Render deployment with authentication.
 """
-from fastapi import FastAPI, HTTPException, Depends, status
+from fastapi import FastAPI, HTTPException, Depends, status, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
@@ -102,6 +102,32 @@ async def get_current_user_info(current_user: dict = Depends(get_current_user)):
         email=current_user["email"],
         name=current_user["name"],
         role=current_user["role"]
+    )
+
+@app.post("/api/auth/token", response_model=LoginResponse)
+async def token_login(username: str = Form(...), password: str = Form(...)):
+    """Token endpoint for form data login (frontend compatibility)."""
+    user = authenticate_user(username, password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    access_token_expires = timedelta(minutes=30)
+    access_token = create_access_token(
+        data={"sub": user["email"]}, expires_delta=access_token_expires
+    )
+    
+    return LoginResponse(
+        access_token=access_token,
+        token_type="bearer",
+        user={
+            "email": user["email"],
+            "name": user["name"],
+            "role": user["role"]
+        }
     )
 
 @app.get("/api/demo-credentials")
