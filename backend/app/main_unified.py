@@ -252,8 +252,42 @@ if AI_AVAILABLE:
 try:
     from .api.s3_storage import router as s3_router
     app.include_router(s3_router)
-except ImportError:
+    print("✅ S3 storage router included successfully")
+except ImportError as e:
+    print(f"❌ Failed to import S3 storage router: {e}")
     pass
+except Exception as e:
+    print(f"❌ Error including S3 storage router: {e}")
+    pass
+
+# Basic S3 test endpoint
+@app.get("/api/s3-test")
+async def s3_test():
+    """Test S3 connection without authentication."""
+    try:
+        from .core.s3 import s3_manager
+        if s3_manager.s3_client:
+            # Try to list buckets
+            response = s3_manager.s3_client.list_buckets()
+            bucket_names = [bucket['Name'] for bucket in response['Buckets']]
+            return {
+                "status": "success",
+                "message": "S3 connection working",
+                "buckets": bucket_names,
+                "target_bucket": s3_manager.bucket_name
+            }
+        else:
+            return {
+                "status": "error",
+                "message": "S3 client not initialized",
+                "error": "Check AWS credentials"
+            }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": "S3 test failed",
+            "error": str(e)
+        }
 
 # Fallback endpoints for missing features
 @app.get("/api/courses")
