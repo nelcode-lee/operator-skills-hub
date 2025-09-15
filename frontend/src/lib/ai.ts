@@ -493,71 +493,6 @@ Format as an assessment rubric with:
     return foundTopics.length > 0 ? foundTopics : ['General Training'];
   }
 
-  /**
-   * Build content generation prompt
-   */
-  private static buildContentPrompt(request: ContentGenerationRequest): string {
-    const basePrompt = `Create a comprehensive ${request.content_type} based on the following information:
-
-Title: ${request.title}
-Description: ${request.description}
-Additional Instructions: ${request.additional_instructions || 'None'}
-Difficulty Level: ${request.difficulty_level || 'intermediate'}
-Target Audience: ${request.target_audience || 'Construction professionals'}
-
-Please generate:`;
-
-    switch (request.content_type) {
-      case 'learning_material':
-        return basePrompt + `
-1. A structured learning material with clear sections
-2. Key learning objectives
-3. Important concepts and definitions
-4. Practical examples and applications relevant to construction
-5. Summary points that reinforce the key concepts
-6. Use UK English spelling and terminology throughout
-
-Format the output as a well-structured educational resource suitable for construction industry training.`;
-
-      case 'lesson_plan':
-        return basePrompt + `
-1. Learning objectives
-2. Duration and timing appropriate for the material
-3. Materials needed
-4. Step-by-step lesson structure
-5. Activities and exercises
-6. Assessment methods
-7. Key points to emphasise
-
-Use UK English spelling and terminology throughout. Format as a professional lesson plan suitable for construction industry training.`;
-
-      case 'test':
-        return basePrompt + `
-1. 10 multiple choice questions
-2. Each question should have 4 answer options
-3. Include the correct answer for each question
-4. Questions should test understanding of key concepts
-5. Mix difficulty levels (easy, medium, hard)
-6. Focus on practical application in construction industry
-7. Include explanations
-8. Use UK English spelling and terminology throughout
-
-Format as JSON with questions array containing id, question, options, correct_answer, and explanation.`;
-
-      case 'assessment':
-        return basePrompt + `
-1. Performance criteria with clear rubrics
-2. Different achievement levels (Excellent, Good, Satisfactory, Needs Improvement)
-3. Assessment methods and tools
-4. Scoring guidelines
-5. Feedback templates
-
-Use UK English spelling and terminology throughout. Format as a comprehensive assessment rubric.`;
-
-      default:
-        return basePrompt + `Create comprehensive ${request.content_type} content suitable for construction industry training. Use UK English spelling and terminology throughout.`;
-    }
-  }
 
   /**
    * Build test generation prompt
@@ -619,23 +554,6 @@ Use UK English spelling and terminology throughout. Focus on practical construct
     return this.generateMockTest(request);
   }
 
-  /**
-   * Extract topics from content
-   */
-  private static extractTopics(content: string): string[] {
-    // Simple topic extraction based on common construction terms
-    const constructionTerms = [
-      'Safety', 'Procedures', 'Quality Control', 'Best Practices',
-      'Equipment', 'Maintenance', 'Training', 'Compliance',
-      'Standards', 'Regulations', 'Risk Assessment', 'Health'
-    ];
-
-    const foundTopics = constructionTerms.filter(term => 
-      content.toLowerCase().includes(term.toLowerCase())
-    );
-
-    return foundTopics.length > 0 ? foundTopics : ['General Construction', 'Training', 'Safety'];
-  }
 
   /**
    * Check if AI services are configured
