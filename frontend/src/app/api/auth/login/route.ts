@@ -1,24 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-// Demo users with pre-hashed passwords
+// Demo users with plain text passwords (for demo purposes)
 const DEMO_USERS = [
   {
     email: 'admin@example.com',
-    password: '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/4.8.8.8', // admin123
+    password: 'admin123',
     role: 'admin',
     name: 'Admin User'
   },
   {
     email: 'student@example.com', 
-    password: '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/4.8.8.8', // student123
+    password: 'student123',
     role: 'student',
     name: 'Student User'
   },
   {
     email: 'instructor@example.com',
-    password: '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/4.8.8.8', // instructor123
+    password: 'instructor123',
     role: 'instructor', 
     name: 'Instructor User'
   }
@@ -48,9 +47,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Verify password
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
+    // Verify password (plain text for demo)
+    if (password !== user.password) {
       return NextResponse.json(
         { detail: 'Incorrect email or password' },
         { status: 401 }
