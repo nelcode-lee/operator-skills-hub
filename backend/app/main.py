@@ -8,10 +8,46 @@ from contextlib import asynccontextmanager
 
 from .core.config import settings
 from .core.database import create_tables
-from .api import auth, courses, users, learning, ai, course_management, user_profiles, content_management, instructor_ai, pdf_serve, student_learning, student_enrollment, assessments, learning_analytics, course_requests, web_content, image_serve, course_images, messaging, analytics, time_tracking, security, schedule
+from .api import auth, courses, users, learning, ai, course_management, user_profiles, content_management, instructor_ai, pdf_serve, student_learning, student_enrollment, assessments, learning_analytics, course_requests, web_content, image_serve, course_images, messaging, analytics, time_tracking, security, schedule, seed
 
 # Import all models to ensure they are registered with SQLAlchemy
 from .models import user, course, learning as learning_models, course_request, messaging as messaging_models, analytics as analytics_models
+
+
+async def seed_database_if_empty():
+    """Seed the database with demo data if it's empty."""
+    import os
+    from sqlalchemy import text
+    from .core.database import engine
+    
+    try:
+        with engine.connect() as conn:
+            # Check if courses table exists and has data
+            result = conn.execute(text("SELECT COUNT(*) FROM courses WHERE is_active = true"))
+            course_count = result.scalar()
+            
+            if course_count == 0:
+                print("🌱 No courses found, seeding database with demo data...")
+                
+                # Import and run the seed script
+                import subprocess
+                import sys
+                
+                # Run the seed script
+                result = subprocess.run([
+                    sys.executable, "seed_demo_data.py"
+                ], cwd=os.path.dirname(os.path.dirname(__file__)), 
+                   capture_output=True, text=True)
+                
+                if result.returncode == 0:
+                    print("✅ Database seeded successfully!")
+                else:
+                    print(f"❌ Seeding failed: {result.stderr}")
+            else:
+                print(f"✅ Database already has {course_count} courses, skipping seed")
+                
+    except Exception as e:
+        print(f"⚠️ Could not check/seed database: {e}")
 
 
 @asynccontextmanager
@@ -19,6 +55,10 @@ async def lifespan(app: FastAPI):
     """Application lifespan events."""
     # Startup
     create_tables()
+    
+    # Seed database if empty
+    await seed_database_if_empty()
+    
     yield
     # Shutdown
     pass
@@ -96,6 +136,7 @@ app.include_router(analytics.router, prefix="/api/analytics", tags=["Analytics &
 app.include_router(time_tracking.router, prefix="/api/time-tracking", tags=["Time Tracking"])
 app.include_router(security.router, prefix="/api/security", tags=["Security"])
 app.include_router(schedule.router, prefix="/api/schedule", tags=["Schedule & Events"])
+app.include_router(seed.router, prefix="/api", tags=["Database Seeding"])
 
 
 @app.get("/")
