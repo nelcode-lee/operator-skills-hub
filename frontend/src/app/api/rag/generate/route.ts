@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { RAGContentGenerationRequest, RAGContentGenerationResponse } from '@/lib/rag';
 import { AIService } from '@/lib/ai';
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const body: RAGContentGenerationRequest = await request.json();
