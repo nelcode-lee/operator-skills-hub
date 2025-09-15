@@ -1,26 +1,7 @@
 # Core Framework - Ultra minimal for Render
 fastapi
 uvicorn[standard]
-sqlalchemy
-alembic
-pydantic
-pydantic-settings
-
-# Database - Using Neon DB (PostgreSQL)
-psycopg2-binary
-
-# Authentication & Security
-python-jose[cryptography]
-passlib[bcrypt]
-python-multipart
-
-# File Storage & Processing - Minimal
-pillow
-pypdf2
-aiofiles
-
-# Environment
-python-dotenv
+pydantic[email]
 
 # Render deployment
 gunicorn
