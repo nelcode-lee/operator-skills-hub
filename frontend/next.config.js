@@ -27,7 +27,7 @@ const nextConfig = {
   },
   
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://operator-skills-hub.onrender.com',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://operator-skills-hub.vercel.app',
   },
   
   async headers() {

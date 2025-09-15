@@ -83,8 +83,7 @@ app.add_middleware(
         "https://operatorskillshub.com",
         "https://www.operatorskillshub.com",
         "https://*.vercel.app",  # Allow all Vercel domains
-        "https://operator-skills-hub.vercel.app",  # Your specific Vercel domain
-        "https://*.up.railway.app"  # Allow all Railway domains
+        "https://operator-skills-hub.vercel.app"  # Your specific Vercel domain
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
@@ -109,7 +108,7 @@ app.add_middleware(
         "127.0.0.1", 
         "operatorskillshub.com", 
         "www.operatorskillshub.com",
-        "*.up.railway.app"  # Allow Railway domains
+        "*.vercel.app"  # Allow Vercel domains
     ]
 )
 
@@ -163,6 +162,6 @@ async def env_check():
         "aws_secret_access_key": "✅ Set" if os.getenv("AWS_SECRET_ACCESS_KEY") else "❌ Not set",
         "aws_region": os.getenv("AWS_REGION", "Not set"),
         "s3_bucket_name": os.getenv("S3_BUCKET_NAME", "Not set"),
-        "render_env": os.getenv("RENDER", "Not set"),
+        "vercel_env": os.getenv("VERCEL", "Not set"),
         "all_env_vars": {k: v for k, v in os.environ.items() if "AWS" in k or "S3" in k}
     }
