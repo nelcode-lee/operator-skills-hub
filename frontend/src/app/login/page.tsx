@@ -48,14 +48,14 @@ export default function LoginPage() {
         password: 'admin123',
       });
       
-      console.log('Form data being sent:', loginFormData.toString());
+      console.log('Form data being sent:', formData.toString());
       
       const response = await fetch(api.auth.login, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: loginFormData,
+        body: formData,
       });
       
       console.log('Response status:', response.status);
