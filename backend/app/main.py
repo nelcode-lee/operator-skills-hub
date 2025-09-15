@@ -43,7 +43,8 @@ app.add_middleware(
         "https://operatorskillshub.com",
         "https://www.operatorskillshub.com",
         "https://*.vercel.app",  # Allow all Vercel domains
-        "https://operator-skills-hub.vercel.app"  # Your specific Vercel domain
+        "https://operator-skills-hub.vercel.app",  # Your specific Vercel domain
+        "https://*.up.railway.app"  # Allow all Railway domains
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
@@ -67,8 +68,9 @@ app.add_middleware(
         "localhost", 
         "127.0.0.1", 
         "operatorskillshub.com", 
-        "www.operatorskillshub.com"
-    ]  # Removed wildcard "*" for security
+        "www.operatorskillshub.com",
+        "*.up.railway.app"  # Allow Railway domains
+    ]
 )
 
 # Include API routers

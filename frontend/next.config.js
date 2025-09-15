@@ -27,7 +27,7 @@ const nextConfig = {
   },
   
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://your-backend-domain.com',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://web-production-ae1ab.up.railway.app',
   },
   
   async headers() {
