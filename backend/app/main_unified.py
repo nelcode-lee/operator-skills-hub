@@ -289,6 +289,12 @@ async def s3_test():
             "error": str(e)
         }
 
+# Simple S3 health check
+@app.get("/api/s3-health")
+async def s3_health():
+    """Simple S3 health check."""
+    return {"message": "S3 health endpoint working", "status": "ok"}
+
 # Fallback endpoints for missing features
 @app.get("/api/courses")
 async def get_courses_fallback():
