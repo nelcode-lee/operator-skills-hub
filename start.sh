@@ -1,22 +1,32 @@
 #!/bin/bash
 
-# Simple script to start all services
-echo "🚀 Starting Operator Skills Hub..."
+# Start Operator Skills Hub in LOCAL mode with full functionality
+echo "🚀 Starting Operator Skills Hub in LOCAL mode..."
 
 # Make sure we're in the right directory
 cd "$(dirname "$0")"
 
-# Check if backend venv exists
-if [ ! -d "backend/venv" ]; then
-    echo "❌ Backend virtual environment not found!"
-    echo "Please run: cd backend && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt"
-    exit 1
-fi
+# Start backend with full functionality
+echo "📦 Starting backend with full functionality..."
+cd backend
+./start_local.sh &
+BACKEND_PID=$!
 
-# Install requests in backend venv if not available
-backend/venv/bin/python -c "import requests" 2>/dev/null || backend/venv/bin/pip install requests
-
-# Start services
-python3 manage_services.py start
+# Start frontend
+echo "🎨 Starting frontend..."
+cd ../frontend
+npm install
+npm run dev &
+FRONTEND_PID=$!
 
 echo "✅ Services started!"
+echo "Backend PID: $BACKEND_PID"
+echo "Frontend PID: $FRONTEND_PID"
+echo "Backend: http://localhost:8000"
+echo "Frontend: http://localhost:3000"
+echo "API Docs: http://localhost:8000/docs"
+echo "Mode: LOCAL (full functionality)"
+
+# Wait for user to stop services
+echo "Press Ctrl+C to stop all services"
+wait

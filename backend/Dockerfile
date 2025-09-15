@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
 # Create python symlink for compatibility
 RUN ln -s /usr/local/bin/python3 /usr/local/bin/python
 
-# Copy requirements first for better caching
-COPY requirements.txt .
+# Copy production requirements first for better caching
+COPY requirements-production.txt requirements.txt
 
 # Install Python dependencies with optimizations
 RUN pip install --no-cache-dir --upgrade pip \
@@ -25,5 +25,5 @@ COPY . .
 # Expose port
 EXPOSE 8000
 
-# Start command - use simplified main for Railway
-CMD ["python", "-m", "uvicorn", "app.main_railway:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start command - use unified main for production
+CMD ["python", "-m", "uvicorn", "app.main_unified:app", "--host", "0.0.0.0", "--port", "8000"]

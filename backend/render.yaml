@@ -2,8 +2,10 @@ services:
   - type: web
     name: operator-skills-hub-backend
     env: python
-    buildCommand: pip install -r requirements-minimal.txt
-    startCommand: python -m uvicorn app.main_simple:app --host 0.0.0.0 --port $PORT
+    buildCommand: pip install -r requirements-production.txt
+    startCommand: python -m uvicorn app.main_unified:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PORT
         value: 8000
+      - key: RENDER
+        value: "true"
