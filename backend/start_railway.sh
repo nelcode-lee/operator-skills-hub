@@ -1,27 +1,13 @@
 #!/bin/bash
 
-# Railway deployment startup script
-echo "🚀 Starting Operator Skills Hub on Railway"
-
-# Debug environment variables
-echo "🔧 Environment variables:"
-echo "PORT: '$PORT'"
-echo "RAILWAY_ENVIRONMENT: '$RAILWAY_ENVIRONMENT'"
-
-# Set default port if PORT is not set or invalid
-if [ -z "$PORT" ] || [ "$PORT" = "\$PORT" ] || [ "$PORT" = '$PORT' ]; then
-    echo "⚠️  PORT variable not set or invalid, using default 8000"
-    export PORT=8000
+# Try python3 first, fallback to python
+if command -v python3 &> /dev/null; then
+    echo "Using python3"
+    python3 -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+elif command -v python &> /dev/null; then
+    echo "Using python"
+    python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
+else
+    echo "Error: Neither python nor python3 found"
+    exit 1
 fi
-
-# Convert PORT to integer to ensure it's valid
-PORT_NUM=$(echo "$PORT" | grep -E '^[0-9]+$' || echo "8000")
-if [ "$PORT_NUM" != "$PORT" ]; then
-    echo "⚠️  Invalid PORT value '$PORT', using 8000"
-    export PORT=8000
-fi
-
-echo "🌐 Starting server on port $PORT"
-
-# Start the Python server
-exec python run_server.py
