@@ -1,0 +1,8 @@
+# Ultra minimal requirements for Render
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+python-multipart
+python-dotenv
+gunicorn

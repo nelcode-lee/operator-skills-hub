@@ -1,26 +1,26 @@
-# Core Framework - Minimal for Railway
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-sqlalchemy==2.0.23
-alembic==1.12.1
-pydantic==2.5.0
-pydantic-settings==2.1.0
+# Core Framework - Ultra minimal for Render
+fastapi
+uvicorn[standard]
+sqlalchemy
+alembic
+pydantic
+pydantic-settings
 
 # Database - Using Neon DB (PostgreSQL)
-psycopg2-binary==2.9.9
+psycopg2-binary
 
 # Authentication & Security
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-python-multipart==0.0.6
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
 
 # File Storage & Processing - Minimal
-pillow==10.1.0
-pypdf2==3.0.1
-aiofiles==23.2.1
+pillow
+pypdf2
+aiofiles
 
 # Environment
-python-dotenv==1.0.0
+python-dotenv
 
-# Railway deployment
-gunicorn==21.2.0
+# Render deployment
+gunicorn
