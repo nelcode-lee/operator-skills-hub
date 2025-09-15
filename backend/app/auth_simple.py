@@ -16,23 +16,23 @@ SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-# Demo users (in production, this would be in a database)
+# Demo users with properly hashed passwords (in production, this would be in a database)
 DEMO_USERS = {
     "admin@example.com": {
         "email": "admin@example.com",
-        "password": "admin123",  # Plain text for demo
+        "password": "$2b$12$ygrK3tnkU/r0EQ/yzvzpden1p3cbziC15DfmzdvnPWj4sam.mEluK",  # "admin123"
         "role": "admin",
         "name": "Admin User"
     },
     "student@example.com": {
         "email": "student@example.com", 
-        "password": "student123",  # Plain text for demo
+        "password": "$2b$12$Y1dhsDjFAQSL17uAzMcCV.wMgR4NbgKO7c8mKC4mrsgX76FE4MYeK",  # "student123"
         "role": "student",
         "name": "Student User"
     },
     "instructor@example.com": {
         "email": "instructor@example.com",
-        "password": "instructor123",  # Plain text for demo
+        "password": "$2b$12$E3YfPQn/tZ2hDid9q8VAieYXokFsAqFM01mRAzXet6imccmpqd6Y.",  # "instructor123"
         "role": "instructor", 
         "name": "Instructor User"
     }
@@ -51,7 +51,7 @@ def authenticate_user(email: str, password: str) -> Optional[dict]:
     user = DEMO_USERS.get(email)
     if not user:
         return None
-    if password != user["password"]:  # Simple string comparison for demo
+    if not verify_password(password, user["password"]):  # Proper password verification
         return None
     return user
 
