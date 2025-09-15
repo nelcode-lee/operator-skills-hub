@@ -65,25 +65,13 @@ export default function LoginPage() {
         const data = await response.json();
         localStorage.setItem('token', data.access_token);
         
-        // Get user role from the response or token
-        const token = data.access_token;
-        try {
-          // Decode token to get user info
-          const payload = JSON.parse(atob(token.split('.')[1]));
-          const userRole = payload.role || formData.role;
-          
-          if (userRole === 'instructor') {
-            window.location.href = '/instructors';
-          } else {
-            window.location.href = '/dashboard';
-          }
-        } catch (e) {
-          // Fallback to form role
-          if (formData.role === 'instructor') {
-            window.location.href = '/instructors';
-          } else {
-            window.location.href = '/dashboard';
-          }
+        // Get user role from the response
+        const userRole = data.user?.role || formData.role;
+        
+        if (userRole === 'instructor') {
+          window.location.href = '/instructors';
+        } else {
+          window.location.href = '/dashboard';
         }
       } else {
         console.log('Login failed with status:', response.status);
