@@ -4,7 +4,7 @@ Database models for the Operator Skills Hub application.
 from .user import User, UserProfile
 from .course import Course, CourseModule, CourseContent, CourseFileContent
 from .learning import Enrollment, LearningSession, Assessment, AssessmentAttempt
-from .course_request import CourseRequest, CourseRequestForm
+from .course_request import CourseRequest
 from .ai import ContentGeneration, PredictiveScore, InstructorMetric
 
 __all__ = [
@@ -19,7 +19,6 @@ __all__ = [
     "Assessment",
     "AssessmentAttempt",
     "CourseRequest",
-    "CourseRequestForm",
     "ContentGeneration",
     "PredictiveScore",
     "InstructorMetric"

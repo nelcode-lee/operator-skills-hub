@@ -33,7 +33,6 @@ class Course(Base):
     assessments = relationship("Assessment", back_populates="course")
     learning_time_tracking = relationship("LearningTimeTracking", back_populates="course")
     course_requests = relationship("CourseRequest", back_populates="course")
-    request_forms = relationship("CourseRequestForm", back_populates="course")
 
 
 class CourseModule(Base):
