@@ -5,11 +5,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { AIContentGenerator } from '@/components/ai-content-generator';
-import { CheckCircle, XCircle, AlertCircle, RefreshCw, Sparkles } from 'lucide-react';
+import { RAGService } from '@/lib/rag';
+import { CheckCircle, XCircle, AlertCircle, RefreshCw, Sparkles, Search, Database } from 'lucide-react';
 
 export default function AITestPage() {
   const [aiStatus, setAiStatus] = useState<any>(null);
+  const [ragStatus, setRagStatus] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
 
   const testAIStatus = async () => {
     setIsLoading(true);
@@ -26,6 +30,39 @@ export default function AITestPage() {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const testRAGStatus = async () => {
+    try {
+      const response = await fetch('/api/rag/status');
+      const data = await response.json();
+      setRagStatus(data);
+    } catch (error) {
+      console.error('RAG status test error:', error);
+      setRagStatus({
+        success: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  };
+
+  const testRAGSearch = async () => {
+    if (!searchQuery.trim()) return;
+    
+    try {
+      const result = await RAGService.searchContent({
+        query: searchQuery,
+        top_k: 5
+      });
+      
+      if (result.success) {
+        setSearchResults(result.results || []);
+      } else {
+        console.error('RAG search failed:', result.error);
+      }
+    } catch (error) {
+      console.error('RAG search error:', error);
     }
   };
 
@@ -82,6 +119,7 @@ export default function AITestPage() {
 
   useEffect(() => {
     testAIStatus();
+    testRAGStatus();
   }, []);
 
   const getStatusIcon = (status: string) => {
@@ -208,6 +246,98 @@ export default function AITestPage() {
               <Sparkles className="h-4 w-4 mr-2" />
               Check AI Status API
             </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* RAG System Status */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Database className="h-5 w-5 text-blue-500" />
+            RAG System Status
+            {ragStatus && getStatusBadge(ragStatus.success ? 'configured' : 'error')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {ragStatus ? (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm font-medium text-gray-500">Vector Store</p>
+                  <p className="text-lg">{ragStatus.status?.vector_store_ready ? '✅ Ready' : '❌ Not Ready'}</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-500">Documents Indexed</p>
+                  <p className="text-lg">{ragStatus.status?.documents_indexed || 0}</p>
+                </div>
+              </div>
+              
+              {ragStatus.status?.features && (
+                <div>
+                  <p className="text-sm font-medium text-gray-500 mb-2">Available Features</p>
+                  <div className="flex gap-2 flex-wrap">
+                    {Object.entries(ragStatus.status.features).map(([feature, enabled]) => (
+                      <Badge 
+                        key={feature} 
+                        variant={enabled ? "default" : "secondary"}
+                        className={enabled ? "bg-blue-500" : ""}
+                      >
+                        {feature.replace('_', ' ')}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* RAG Search Test */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Search className="h-5 w-5 text-green-500" />
+            RAG Search Test
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for content (e.g., 'safety procedures', 'equipment operation')"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-md"
+                onKeyPress={(e) => e.key === 'Enter' && testRAGSearch()}
+              />
+              <Button onClick={testRAGSearch} disabled={!searchQuery.trim()}>
+                <Search className="h-4 w-4 mr-2" />
+                Search
+              </Button>
+            </div>
+            
+            {searchResults.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-sm font-medium">Search Results ({searchResults.length}):</p>
+                {searchResults.map((result, index) => (
+                  <div key={index} className="p-3 border rounded-lg">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="font-medium">{result.metadata.title}</h4>
+                      <Badge variant="outline">Score: {(result.score || 0).toFixed(2)}</Badge>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-2">{result.content}</p>
+                    <div className="text-xs text-gray-500">
+                      Source: {result.metadata.source} | Course: {result.metadata.course_id}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
