@@ -16,8 +16,17 @@ import {
   Award,
   CheckCircle,
   Play,
-  Eye
+  Eye,
+  Wrench,
+  Shield,
+  Satellite,
+  MapPin,
+  Building,
+  DoorOpen,
+  FileText,
+  Target
 } from 'lucide-react';
+import NextImage from 'next/image';
 import { api, getAuthHeaders } from '@/lib/api';
 
 interface Course {
@@ -167,6 +176,77 @@ export default function StudentCatalog() {
     }
   };
 
+  const getCourseThumbnail = (course: Course) => {
+    // Return relevant thumbnail based on course title/category
+    const title = course.title.toLowerCase();
+    const category = course.category?.toLowerCase() || '';
+    
+    // Plant Training & Equipment courses
+    if (title.includes('plant') || title.includes('excavator') || title.includes('dumper') || 
+        title.includes('crane') || title.includes('loader') || title.includes('bulldozer') ||
+        title.includes('forward tipping')) {
+      return '/images/equipment/forward-tipping-dumper.png';
+    }
+    
+    // Health & Safety courses
+    if (title.includes('health') || title.includes('safety') || title.includes('h&s') || 
+        category.includes('health') || category.includes('safety')) {
+      return '/images/courses/H&S.webp';
+    }
+    
+    // GPS Training courses
+    if (title.includes('gps') || title.includes('machine control') || 
+        category.includes('gps')) {
+      return '/images/courses/gps training.jpeg';
+    }
+    
+    // Utility Detection courses
+    if (title.includes('utility') || title.includes('detection') || 
+        category.includes('utility')) {
+      return '/images/equipment/utility-detection.jpg';
+    }
+    
+    // Streetworks courses
+    if (title.includes('streetworks') || title.includes('nrswa') || 
+        category.includes('streetworks')) {
+      return '/images/courses/streetworks.jpg';
+    }
+    
+    // Site Safety courses
+    if (title.includes('site safety') || title.includes('safety plus') || 
+        category.includes('site safety')) {
+      return '/images/courses/site safety.jpeg';
+    }
+    
+    // NOCN courses
+    if (title.includes('nocn') || category.includes('nocn')) {
+      return '/images/courses/nocn.jpeg';
+    }
+    
+    // Accreditation courses
+    if (title.includes('accreditation') || title.includes('compliance') || 
+        category.includes('accreditation')) {
+      return '/images/courses/accreditations.png';
+    }
+    
+    // Default fallback
+    return '/images/equipment/forward-tipping-dumper.png';
+  };
+
+  const getCategoryIcon = (category: string) => {
+    const cat = category.toLowerCase();
+    switch (cat) {
+      case 'plant training': return <Wrench className="h-5 w-5" />;
+      case 'health & safety': return <Shield className="h-5 w-5" />;
+      case 'gps training': return <Satellite className="h-5 w-5" />;
+      case 'utility detection': return <MapPin className="h-5 w-5" />;
+      case 'streetworks': return <Building className="h-5 w-5" />;
+      case 'site safety': return <DoorOpen className="h-5 w-5" />;
+      case 'nocn': return <FileText className="h-5 w-5" />;
+      default: return <BookOpen className="h-5 w-5" />;
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
@@ -180,16 +260,11 @@ export default function StudentCatalog() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Course Catalog</h1>
-          <p className="text-muted-foreground">
-            Discover and enroll in construction training courses
-          </p>
-        </div>
-        <div className="text-sm text-gray-600">
-          {filteredCourses.length} course{filteredCourses.length !== 1 ? 's' : ''} available
-        </div>
+      <div className="text-center space-y-4">
+        <h1 className="text-4xl font-bold text-gray-900">All Available Courses</h1>
+        <p className="text-lg text-gray-600 max-w-4xl mx-auto">
+          All our courses are carefully planned and scheduled throughout the year to ensure you have access to training on a regular basis.
+        </p>
       </div>
 
       {error && (
@@ -246,10 +321,36 @@ export default function StudentCatalog() {
       </Card>
 
       {/* Course Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {filteredCourses.map((course) => (
           <Card key={course.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
+            <CardHeader className="pb-3">
+              {/* Category Header with Icon */}
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center space-x-2">
+                  <div className="p-2 bg-blue-100 rounded-lg">
+                    {getCategoryIcon(course.category)}
+                  </div>
+                  <span className="text-sm font-medium text-blue-600">{course.category}</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                  <span className="text-sm font-medium">4.8</span>
+                </div>
+              </div>
+              
+              {/* Course Image */}
+              <div className="mb-4">
+                <NextImage
+                  src={getCourseThumbnail(course)}
+                  alt={course.title}
+                  width={300}
+                  height={200}
+                  className="w-full h-48 object-cover rounded-lg"
+                />
+              </div>
+              
+              {/* Course Title and Description */}
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <CardTitle className="text-lg line-clamp-2">{course.title}</CardTitle>
@@ -265,35 +366,40 @@ export default function StudentCatalog() {
             </CardHeader>
             
             <CardContent className="space-y-4">
+              {/* Duration and People Trained */}
               <div className="flex items-center justify-between text-sm text-gray-600">
-                <div className="flex items-center space-x-1">
-                  <Clock className="h-4 w-4" />
-                  <span>{course.duration_hours}h</span>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-1">
+                    <Clock className="h-4 w-4" />
+                    <span>{course.duration_hours || '1-5'} Days</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <Users className="h-4 w-4" />
+                    <span>2,500 trained</span>
+                  </div>
                 </div>
-                <Badge className={getDifficultyColor(course.difficulty_level)}>
-                  {course.difficulty_level}
-                </Badge>
               </div>
 
-              <div className="text-sm text-gray-600">
-                <span className="font-medium">Category:</span> {course.category}
+              {/* Price */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">From</span>
+                <span className="text-lg font-bold text-green-600">£200</span>
               </div>
 
               {course.status === 'available' && (
                 <Button
                   onClick={() => handleEnroll(course.id)}
-                  className="w-full"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white"
                 >
-                  <BookOpen className="h-4 w-4 mr-2" />
-                  Enroll Now
+                  <span>View Details</span>
+                  <span className="ml-2">→</span>
                 </Button>
               )}
 
               {course.status === 'active' && (
                 <Button
                   onClick={() => window.location.href = `/student-portal?course=${course.id}`}
-                  className="w-full"
-                  variant="outline"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white"
                 >
                   <Play className="h-4 w-4 mr-2" />
                   Continue Learning
@@ -303,8 +409,7 @@ export default function StudentCatalog() {
               {course.status === 'completed' && (
                 <Button
                   onClick={() => window.location.href = `/student-portal?course=${course.id}`}
-                  className="w-full"
-                  variant="outline"
+                  className="w-full bg-yellow-500 hover:bg-yellow-600 text-white"
                 >
                   <Eye className="h-4 w-4 mr-2" />
                   View Course
@@ -315,7 +420,7 @@ export default function StudentCatalog() {
                 <div className="space-y-2">
                   <Button
                     onClick={() => handleEnroll(course.id)}
-                    className="w-full"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white"
                   >
                     <Play className="h-4 w-4 mr-2" />
                     Resume Learning
@@ -339,6 +444,8 @@ export default function StudentCatalog() {
     </div>
   );
 }
+
+
 
 
 
