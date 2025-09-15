@@ -193,6 +193,20 @@ if AUTH_AVAILABLE:
             role=current_user["role"]
         )
 
+    @app.post("/api/user-profiles/register")
+    async def register_user(user_data: dict):
+        """Register a new user (simplified for demo)."""
+        # For demo purposes, just return success
+        # In a real app, this would create a user in the database
+        return {
+            "message": "Registration successful! Please use demo credentials to login.",
+            "demo_credentials": {
+                "admin": {"email": "admin@example.com", "password": "admin123"},
+                "student": {"email": "student@example.com", "password": "student123"},
+                "instructor": {"email": "instructor@example.com", "password": "instructor123"}
+            }
+        }
+
     @app.get("/api/demo-credentials")
     async def get_demo_credentials():
         """Get demo login credentials."""
