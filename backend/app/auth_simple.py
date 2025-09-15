@@ -20,19 +20,19 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 DEMO_USERS = {
     "admin@example.com": {
         "email": "admin@example.com",
-        "password": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/HS.8K2a",  # "admin123"
+        "password": "admin123",  # Plain text for demo
         "role": "admin",
         "name": "Admin User"
     },
     "student@example.com": {
         "email": "student@example.com", 
-        "password": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/HS.8K2a",  # "student123"
+        "password": "student123",  # Plain text for demo
         "role": "student",
         "name": "Student User"
     },
     "instructor@example.com": {
         "email": "instructor@example.com",
-        "password": "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBPj4J/HS.8K2a",  # "instructor123"
+        "password": "instructor123",  # Plain text for demo
         "role": "instructor", 
         "name": "Instructor User"
     }
@@ -51,7 +51,7 @@ def authenticate_user(email: str, password: str) -> Optional[dict]:
     user = DEMO_USERS.get(email)
     if not user:
         return None
-    if not verify_password(password, user["password"]):
+    if password != user["password"]:  # Simple string comparison for demo
         return None
     return user
 
