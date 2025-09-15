@@ -1,0 +1,44 @@
+# Local development requirements - full functionality
+fastapi
+uvicorn[standard]
+sqlalchemy
+alembic
+pydantic[email]
+pydantic-settings
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+python-dotenv
+
+# Database
+psycopg2-binary
+redis
+
+# AI/ML Integration - full functionality
+openai
+sentence-transformers
+faiss-cpu
+numpy
+langchain
+langchain-openai
+
+# File Processing
+boto3
+pillow
+pypdf2
+python-magic
+aiofiles
+
+# Background Tasks
+celery
+apscheduler
+
+# Development
+pytest
+pytest-asyncio
+black
+isort
+flake8
+
+# Production
+gunicorn
