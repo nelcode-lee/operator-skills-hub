@@ -48,14 +48,14 @@ export default function LoginPage() {
         password: 'admin123',
       });
       
-      console.log('Form data being sent:', formData.toString());
+      console.log('Form data being sent:', loginFormData.toString());
       
       const response = await fetch(api.auth.login, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formData,
+        body: loginFormData,
       });
       
       console.log('Response status:', response.status);
@@ -85,17 +85,13 @@ export default function LoginPage() {
       console.log('Form data password length:', formData.password.length);
       console.log('Form data password first char:', formData.password.charAt(0));
       
+      // Use exact same approach as test button
       const loginFormData = new URLSearchParams({
         username: formData.email,
         password: formData.password,
       });
       
-      console.log('Login form data being sent:', loginFormData.toString());
-      console.log('Login form data type:', typeof loginFormData);
-      console.log('Login form data constructor:', loginFormData.constructor.name);
-      console.log('Login form data entries:', Array.from(loginFormData.entries()));
-      console.log('Login form data keys:', Array.from(loginFormData.keys()));
-      console.log('Login form data values:', Array.from(loginFormData.values()));
+      console.log('Form data being sent:', loginFormData.toString());
       
       const response = await fetch(api.auth.login, {
         method: 'POST',
