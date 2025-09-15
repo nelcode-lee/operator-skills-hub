@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     // Apply additional filters
     if (filters?.content_type) {
       filteredDocs = filteredDocs.filter(doc => 
-        doc.metadata.title.toLowerCase().includes(filters.content_type.toLowerCase())
+        doc.metadata.title.toLowerCase().includes(filters.content_type!.toLowerCase())
       );
     }
 
