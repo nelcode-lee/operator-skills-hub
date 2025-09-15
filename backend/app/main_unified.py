@@ -295,6 +295,20 @@ async def s3_health():
     """Simple S3 health check."""
     return {"message": "S3 health endpoint working", "status": "ok"}
 
+# Test endpoint to verify main_unified is being used
+@app.get("/api/test-unified")
+async def test_unified():
+    """Test endpoint to verify main_unified.py is being used."""
+    return {
+        "message": "main_unified.py is being used",
+        "version": "1.0.0",
+        "features": {
+            "s3_available": True,
+            "auth_available": AUTH_AVAILABLE,
+            "database_available": DATABASE_AVAILABLE
+        }
+    }
+
 # Fallback endpoints for missing features
 @app.get("/api/courses")
 async def get_courses_fallback():
