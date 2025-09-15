@@ -10,13 +10,9 @@ pydantic-settings
 psycopg2-binary>=2.9.0
 redis>=5.0.0
 
-# AI/ML Integration
+# AI/ML Integration - Lighter versions for Railway
 openai>=1.0.0
-sentence-transformers>=2.2.0
-faiss-cpu>=1.7.0
 numpy>=1.21.0
-langchain>=0.1.0
-langchain-openai>=0.1.0
 
 # Authentication & Security
 python-jose[cryptography]
