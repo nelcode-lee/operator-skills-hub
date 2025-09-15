@@ -309,6 +309,26 @@ async def test_unified():
         }
     }
 
+# Simple S3 test without router
+@app.get("/api/s3-simple")
+async def s3_simple():
+    """Simple S3 test without authentication."""
+    try:
+        from .core.s3 import s3_manager
+        return {
+            "status": "success",
+            "message": "S3 manager loaded",
+            "s3_client_available": s3_manager.s3_client is not None,
+            "bucket_name": s3_manager.bucket_name,
+            "aws_region": s3_manager.aws_region
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": "S3 test failed",
+            "error": str(e)
+        }
+
 # Fallback endpoints for missing features
 @app.get("/api/courses")
 async def get_courses_fallback():
