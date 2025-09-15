@@ -71,7 +71,9 @@ export default function LoginPage() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('handleSubmit called!');
     e.preventDefault();
+    console.log('preventDefault called');
     setIsLoading(true);
     setError('');
 
@@ -123,6 +125,7 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error('Login error:', error);
+      console.error('Error details:', error);
       setError(`Network error: ${error instanceof Error ? error.message : 'Unknown error'}`);
     } finally {
       setIsLoading(false);
