@@ -20,7 +20,7 @@ export default function Dashboard() {
     }
 
     try {
-      const response = await fetch(api.userProfiles.me, {
+      const response = await fetch(api.auth.me, {
         headers: getAuthHeaders()
       });
       
