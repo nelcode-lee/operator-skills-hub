@@ -112,3 +112,16 @@ async def root():
 async def health_check():
     """Health check endpoint."""
     return {"status": "healthy", "version": settings.app_version}
+
+@app.get("/api/env-check")
+async def env_check():
+    """Check environment variables for debugging."""
+    import os
+    return {
+        "aws_access_key_id": "✅ Set" if os.getenv("AWS_ACCESS_KEY_ID") else "❌ Not set",
+        "aws_secret_access_key": "✅ Set" if os.getenv("AWS_SECRET_ACCESS_KEY") else "❌ Not set",
+        "aws_region": os.getenv("AWS_REGION", "Not set"),
+        "s3_bucket_name": os.getenv("S3_BUCKET_NAME", "Not set"),
+        "render_env": os.getenv("RENDER", "Not set"),
+        "all_env_vars": {k: v for k, v in os.environ.items() if "AWS" in k or "S3" in k}
+    }
