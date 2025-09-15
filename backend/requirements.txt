@@ -1,44 +1,26 @@
-# Core Framework
-fastapi
-uvicorn[standard]
-sqlalchemy
-alembic
-pydantic
-pydantic-settings
+# Core Framework - Minimal for Railway
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+sqlalchemy==2.0.23
+alembic==1.12.1
+pydantic==2.5.0
+pydantic-settings==2.1.0
 
 # Database - Using Neon DB (PostgreSQL)
-psycopg2-binary>=2.9.0
-redis>=5.0.0
-
-# AI/ML Integration - Lighter versions for Railway
-openai>=1.0.0
-numpy>=1.21.0
+psycopg2-binary==2.9.9
 
 # Authentication & Security
-python-jose[cryptography]
-passlib[bcrypt]
-python-multipart
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
 
-# File Storage & Processing
-boto3
-pillow
-pypdf2
-python-magic
-aiofiles
-
-# Background Tasks
-celery
-apscheduler
-
-# Development
-pytest
-pytest-asyncio
-black
-isort
-flake8
+# File Storage & Processing - Minimal
+pillow==10.1.0
+pypdf2==3.0.1
+aiofiles==23.2.1
 
 # Environment
-python-dotenv
+python-dotenv==1.0.0
 
 # Railway deployment
-gunicorn>=20.1.0
+gunicorn==21.2.0
