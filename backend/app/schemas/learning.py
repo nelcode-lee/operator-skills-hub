@@ -15,8 +15,8 @@ class StudentCourseResponse(BaseModel):
     duration_hours: Optional[int] = None
     difficulty_level: Optional[str] = None
     progress_percentage: float
-    enrolled_at: datetime
-    last_accessed: datetime
+    enrolled_at: Optional[datetime] = None
+    last_accessed: Optional[datetime] = None
     status: str  # 'active', 'completed', 'paused'
 
     class Config:
