@@ -38,6 +38,28 @@ export default function LoginPage() {
     }
   };
 
+  const testAuthEndpoint = async () => {
+    try {
+      console.log('Testing auth endpoint:', api.auth.login);
+      const response = await fetch(api.auth.login, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          username: 'admin@example.com',
+          password: 'admin123',
+        }),
+      });
+      const data = await response.json();
+      console.log('Auth endpoint test response:', data);
+      setError(`Auth Endpoint Test: ${response.status} - ${JSON.stringify(data)}`);
+    } catch (error) {
+      console.error('Auth endpoint test failed:', error);
+      setError(`Auth Endpoint Test Failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -45,6 +67,7 @@ export default function LoginPage() {
 
     try {
       console.log('Login URL:', api.auth.login);
+      console.log('API Base URL:', api.baseUrl);
       console.log('Login data:', { email: formData.email, password: '***' });
       
       const response = await fetch(api.auth.login, {
@@ -333,14 +356,24 @@ export default function LoginPage() {
                 </Button>
                 
                 {!isRegisterMode && (
-                  <Button 
-                    type="button" 
-                    variant="outline" 
-                    className="w-full mt-2" 
-                    onClick={testApiConnection}
-                  >
-                    Test API Connection
-                  </Button>
+                  <div className="flex space-x-2 mt-2">
+                    <Button
+                      type="button" 
+                      variant="outline" 
+                      className="flex-1" 
+                      onClick={testApiConnection}
+                    >
+                      Test API Connection
+                    </Button>
+                    <Button
+                      type="button" 
+                      variant="outline" 
+                      className="flex-1" 
+                      onClick={testAuthEndpoint}
+                    >
+                      Test Auth Endpoint
+                    </Button>
+                  </div>
                 )}
               </div>
             </form>

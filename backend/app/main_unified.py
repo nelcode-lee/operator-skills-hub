@@ -121,6 +121,15 @@ async def health_check():
         }
     }
 
+@app.get("/api/test")
+async def test_endpoint():
+    """Test endpoint for frontend connectivity."""
+    return {
+        "message": "Backend is reachable from frontend",
+        "timestamp": "2025-09-15T13:00:00Z",
+        "status": "success"
+    }
+
 # Authentication endpoints
 if AUTH_AVAILABLE:
     @app.post("/api/auth/login", response_model=LoginResponse)
