@@ -41,16 +41,26 @@ export default function LoginPage() {
   const testAuthEndpoint = async () => {
     try {
       console.log('Testing auth endpoint:', api.auth.login);
+      console.log('API Base URL:', api.baseUrl);
+      
+      const formData = new URLSearchParams({
+        username: 'admin@example.com',
+        password: 'admin123',
+      });
+      
+      console.log('Form data being sent:', formData.toString());
+      
       const response = await fetch(api.auth.login, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams({
-          username: 'admin@example.com',
-          password: 'admin123',
-        }),
+        body: formData,
       });
+      
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+      
       const data = await response.json();
       console.log('Auth endpoint test response:', data);
       setError(`Auth Endpoint Test: ${response.status} - ${JSON.stringify(data)}`);
@@ -70,19 +80,23 @@ export default function LoginPage() {
       console.log('API Base URL:', api.baseUrl);
       console.log('Login data:', { email: formData.email, password: '***' });
       
+      const loginFormData = new URLSearchParams({
+        username: formData.email,
+        password: formData.password,
+      });
+      
+      console.log('Login form data being sent:', loginFormData.toString());
+      
       const response = await fetch(api.auth.login, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams({
-          username: formData.email,
-          password: formData.password,
-        }),
+        body: loginFormData,
       });
       
       console.log('Login response status:', response.status);
-      console.log('Login response headers:', response.headers);
+      console.log('Login response headers:', Object.fromEntries(response.headers.entries()));
 
       if (response.ok) {
         const data = await response.json();
