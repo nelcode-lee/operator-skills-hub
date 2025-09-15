@@ -41,7 +41,9 @@ app.add_middleware(
         "http://127.0.0.1:3000",
         "http://127.0.0.1:3001",
         "https://operatorskillshub.com",
-        "https://www.operatorskillshub.com"
+        "https://www.operatorskillshub.com",
+        "https://*.vercel.app",  # Allow all Vercel domains
+        "https://operator-skills-hub.vercel.app"  # Your specific Vercel domain
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
