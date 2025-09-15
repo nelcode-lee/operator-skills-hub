@@ -81,6 +81,9 @@ export default function LoginPage() {
       console.log('Login URL:', api.auth.login);
       console.log('API Base URL:', api.baseUrl);
       console.log('Login data:', { email: formData.email, password: '***' });
+      console.log('Form data email:', formData.email);
+      console.log('Form data password length:', formData.password.length);
+      console.log('Form data password first char:', formData.password.charAt(0));
       
       const loginFormData = new URLSearchParams({
         username: formData.email,
@@ -88,6 +91,11 @@ export default function LoginPage() {
       });
       
       console.log('Login form data being sent:', loginFormData.toString());
+      console.log('Login form data type:', typeof loginFormData);
+      console.log('Login form data constructor:', loginFormData.constructor.name);
+      console.log('Login form data entries:', Array.from(loginFormData.entries()));
+      console.log('Login form data keys:', Array.from(loginFormData.keys()));
+      console.log('Login form data values:', Array.from(loginFormData.values()));
       
       const response = await fetch(api.auth.login, {
         method: 'POST',
