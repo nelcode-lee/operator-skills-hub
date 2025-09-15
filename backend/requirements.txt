@@ -1,7 +1,11 @@
-# Core Framework - Ultra minimal for Render
+# Core Framework - With auth for Render
 fastapi
 uvicorn[standard]
 pydantic[email]
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+python-dotenv
 
 # Render deployment
 gunicorn
