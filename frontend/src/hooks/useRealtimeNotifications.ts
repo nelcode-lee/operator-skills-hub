@@ -70,17 +70,17 @@ export function useRealtimeNotifications(): UseRealtimeNotificationsReturn {
 
       eventSource = new EventSource(`${api.messaging.notificationsStream}?token=${token}`);
 
-      eventSource.onopen = () => {
+      eventSource.addEventListener('open', () => {
         console.log('Real-time notifications connected');
         setIsConnected(true);
-      };
+      });
 
-      eventSource.onclose = () => {
+      eventSource.addEventListener('close', () => {
         console.log('Real-time notifications connection closed');
         setIsConnected(false);
-      };
+      });
 
-      eventSource.onmessage = (event) => {
+      eventSource.addEventListener('message', (event) => {
         try {
           const data = JSON.parse(event.data);
           
@@ -104,9 +104,9 @@ export function useRealtimeNotifications(): UseRealtimeNotificationsReturn {
         } catch (error) {
           console.error('Error parsing notification data:', error);
         }
-      };
+      });
 
-      eventSource.onerror = (error) => {
+      eventSource.addEventListener('error', (error) => {
         console.error('Real-time notifications error:', error);
         setIsConnected(false);
         
@@ -115,7 +115,7 @@ export function useRealtimeNotifications(): UseRealtimeNotificationsReturn {
           console.log('Attempting to reconnect to real-time notifications...');
           connect();
         }, 5000);
-      };
+      });
     };
 
     // Request notification permission

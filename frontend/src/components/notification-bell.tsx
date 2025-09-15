@@ -160,9 +160,13 @@ export default function NotificationBell({ currentUserId }: NotificationBellProp
                   <CardTitle className="text-sm">Notifications</CardTitle>
                   <div className="flex items-center space-x-1">
                     {isConnected ? (
-                      <Wifi className="h-3 w-3 text-green-500" title="Real-time connected" />
+                      <div title="Real-time connected">
+                        <Wifi className="h-3 w-3 text-green-500" />
+                      </div>
                     ) : (
-                      <WifiOff className="h-3 w-3 text-red-500" title="Real-time disconnected" />
+                      <div title="Real-time disconnected">
+                        <WifiOff className="h-3 w-3 text-red-500" />
+                      </div>
                     )}
                     <span className="text-xs text-gray-500">
                       {isConnected ? 'Live' : 'Offline'}
@@ -235,9 +239,9 @@ export default function NotificationBell({ currentUserId }: NotificationBellProp
                                   <Clock className="h-3 w-3" />
                                   <span>{formatTimeAgo(notification.created_at)}</span>
                                 </span>
-                                {notification.course_title && (
+                                {(notification as any).course_title && (
                                   <span className="text-xs text-blue-600">
-                                    {notification.course_title}
+                                    {(notification as any).course_title}
                                   </span>
                                 )}
                               </div>

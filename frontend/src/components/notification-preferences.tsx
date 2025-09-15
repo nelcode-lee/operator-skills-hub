@@ -150,7 +150,7 @@ export default function NotificationPreferences() {
               <Switch
                 id="email-notifications"
                 checked={preferences.email_notifications}
-                onCheckedChange={(checked) => updatePreference('email_notifications', checked)}
+                onCheckedChange={(checked: boolean) => updatePreference('email_notifications', checked)}
               />
             </div>
 
@@ -169,7 +169,7 @@ export default function NotificationPreferences() {
               <Switch
                 id="realtime-notifications"
                 checked={preferences.realtime_notifications}
-                onCheckedChange={(checked) => updatePreference('realtime_notifications', checked)}
+                onCheckedChange={(checked: boolean) => updatePreference('realtime_notifications', checked)}
               />
             </div>
           </div>
@@ -196,7 +196,7 @@ export default function NotificationPreferences() {
                 <Switch
                   id="messages"
                   checked={preferences.preferences.messages}
-                  onCheckedChange={(checked) => updateSpecificPreference('messages', checked)}
+                  onCheckedChange={(checked: boolean) => updateSpecificPreference('messages', checked)}
                   disabled={!preferences.email_notifications && !preferences.realtime_notifications}
                 />
               </div>
@@ -216,7 +216,7 @@ export default function NotificationPreferences() {
                 <Switch
                   id="qa-replies"
                   checked={preferences.preferences.qa_replies}
-                  onCheckedChange={(checked) => updateSpecificPreference('qa_replies', checked)}
+                  onCheckedChange={(checked: boolean) => updateSpecificPreference('qa_replies', checked)}
                   disabled={!preferences.email_notifications && !preferences.realtime_notifications}
                 />
               </div>
@@ -236,7 +236,7 @@ export default function NotificationPreferences() {
                 <Switch
                   id="course-updates"
                   checked={preferences.preferences.course_updates}
-                  onCheckedChange={(checked) => updateSpecificPreference('course_updates', checked)}
+                  onCheckedChange={(checked: boolean) => updateSpecificPreference('course_updates', checked)}
                   disabled={!preferences.email_notifications && !preferences.realtime_notifications}
                 />
               </div>
@@ -256,7 +256,7 @@ export default function NotificationPreferences() {
                 <Switch
                   id="test-results"
                   checked={preferences.preferences.test_results}
-                  onCheckedChange={(checked) => updateSpecificPreference('test_results', checked)}
+                  onCheckedChange={(checked: boolean) => updateSpecificPreference('test_results', checked)}
                   disabled={!preferences.email_notifications && !preferences.realtime_notifications}
                 />
               </div>
@@ -276,7 +276,7 @@ export default function NotificationPreferences() {
                 <Switch
                   id="system"
                   checked={preferences.preferences.system}
-                  onCheckedChange={(checked) => updateSpecificPreference('system', checked)}
+                  onCheckedChange={(checked: boolean) => updateSpecificPreference('system', checked)}
                   disabled={!preferences.email_notifications && !preferences.realtime_notifications}
                 />
               </div>

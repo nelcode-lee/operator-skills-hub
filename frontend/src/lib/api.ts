@@ -187,7 +187,7 @@ export const isTokenValid = (): boolean => {
 /**
  * Get authorization headers for API requests with token validation
  */
-export const getAuthHeaders = (): HeadersInit => {
+export const getAuthHeaders = (): Record<string, string> => {
   const token = localStorage.getItem('token');
   
   if (!token || !api.isTokenValid()) {
@@ -208,7 +208,7 @@ export const getAuthHeaders = (): HeadersInit => {
 /**
  * Get authorization headers for form data requests with token validation
  */
-export const getAuthHeadersForm = (): HeadersInit => {
+export const getAuthHeadersForm = (): Record<string, string> => {
   const token = localStorage.getItem('token');
   
   if (!token || !api.isTokenValid()) {
