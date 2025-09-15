@@ -92,6 +92,9 @@ export default function LoginPage() {
       });
       
       console.log('Form data being sent:', loginFormData.toString());
+      console.log('Form data type:', typeof loginFormData);
+      console.log('Form data constructor:', loginFormData.constructor.name);
+      console.log('Form data entries:', Array.from(loginFormData.entries()));
       
       const response = await fetch(api.auth.login, {
         method: 'POST',
