@@ -1,9 +1,10 @@
 {
   "build": {
-    "builder": "NIXPACKS"
+    "builder": "NIXPACKS",
+    "buildCommand": "cd backend && pip install -r requirements.txt"
   },
   "deploy": {
-    "startCommand": "./start_railway.sh",
+    "startCommand": "cd backend && ./start_railway.sh",
     "healthcheckPath": "/health"
   }
 }
