@@ -2,7 +2,8 @@
  * API Configuration and utilities
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Use relative URLs for Vercel deployment (same domain)
+const API_BASE_URL = process.env.NODE_ENV === 'production' ? '' : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000');
 
 // Debug logging
 console.log('API_BASE_URL:', API_BASE_URL);
@@ -27,7 +28,7 @@ export const api = {
   
   // Auth endpoints
   auth: {
-    login: `${API_BASE_URL}/api/auth/token`,
+    login: `${API_BASE_URL}/api/auth/login`,
     register: `${API_BASE_URL}/api/auth/register`,
     me: `${API_BASE_URL}/api/auth/me`,
     logout: `${API_BASE_URL}/api/auth/logout`,
