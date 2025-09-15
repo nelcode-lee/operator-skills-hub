@@ -1,6 +1,6 @@
 {
   "version": 2,
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://web-production-ae1ab.up.railway.app"
+    "NEXT_PUBLIC_API_URL": "https://operator-skills-hub.onrender.com"
   }
 }
