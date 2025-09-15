@@ -133,9 +133,13 @@ export default function NotificationBell({ currentUserId }: NotificationBellProp
         {/* Connection status indicator */}
         <div className="absolute -bottom-1 -right-1">
           {isConnected ? (
-            <Wifi className="h-3 w-3 text-green-500" title="Real-time connected" />
+            <div title="Real-time connected">
+              <Wifi className="h-3 w-3 text-green-500" />
+            </div>
           ) : (
-            <WifiOff className="h-3 w-3 text-red-500" title="Real-time disconnected" />
+            <div title="Real-time disconnected">
+              <WifiOff className="h-3 w-3 text-red-500" />
+            </div>
           )}
         </div>
       </Button>
