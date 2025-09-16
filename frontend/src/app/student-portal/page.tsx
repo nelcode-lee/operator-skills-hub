@@ -34,7 +34,6 @@ import {
   Send,
   MessageSquare
 } from 'lucide-react';
-import NextImage from 'next/image';
 import { api, getAuthHeaders, logout } from '@/lib/api';
 import CourseRequestForm from '@/components/CourseRequestForm';
 import MessagingInterface from '@/components/messaging-interface';
@@ -549,12 +548,10 @@ export default function StudentPortal() {
                     <CardHeader>
                       <div className="flex items-start space-x-3">
                         <div className="flex-shrink-0">
-                          <NextImage
+                          <img
                             src={getCourseThumbnail(course)}
                             alt={course.title}
-                            width={60}
-                            height={60}
-                            className="rounded-lg object-cover"
+                            className="w-15 h-15 rounded-lg object-cover"
                           />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -626,12 +623,10 @@ export default function StudentPortal() {
                     <CardHeader>
                       <div className="flex items-start space-x-3">
                         <div className="flex-shrink-0">
-                          <NextImage
+                          <img
                             src={getCourseThumbnail(course)}
                             alt={course.title}
-                            width={60}
-                            height={60}
-                            className="rounded-lg object-cover"
+                            className="w-15 h-15 rounded-lg object-cover"
                           />
                         </div>
                         <div className="flex-1 min-w-0">

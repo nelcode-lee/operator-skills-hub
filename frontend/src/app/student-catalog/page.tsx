@@ -26,7 +26,6 @@ import {
   FileText,
   Target
 } from 'lucide-react';
-import NextImage from 'next/image';
 import { api, getAuthHeaders } from '@/lib/api';
 
 interface Course {
@@ -341,11 +340,9 @@ export default function StudentCatalog() {
               
               {/* Course Image */}
               <div className="mb-4">
-                <NextImage
+                <img
                   src={getCourseThumbnail(course)}
                   alt={course.title}
-                  width={300}
-                  height={200}
                   className="w-full h-48 object-cover rounded-lg"
                 />
               </div>
