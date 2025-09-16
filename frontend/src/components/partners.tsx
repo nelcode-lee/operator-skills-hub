@@ -1,4 +1,3 @@
-import Image from 'next/image'
 
 const partners = [
   {
@@ -42,15 +41,10 @@ export function Partners() {
             >
               <div className="text-center">
                 <div className="relative w-48 h-24 mx-auto mb-6 bg-white rounded-lg shadow-sm flex items-center justify-center group-hover:shadow-md transition-shadow duration-300">
-                  <Image
+                  <img
                     src={partner.logo}
                     alt={`${partner.name} logo`}
-                    width={180}
-                    height={80}
-                    className="object-contain max-w-full max-h-full"
-                    loading="lazy"
-                    quality={90}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="w-45 h-20 object-contain max-w-full max-h-full"
                   />
                 </div>
                 

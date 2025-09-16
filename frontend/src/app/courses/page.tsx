@@ -2,7 +2,6 @@ import Header from '@/components/header'
 import { Footer } from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { Clock, Users, Star, ArrowRight, Wrench, Shield, Satellite, MapPin, GraduationCap, Award, BookOpen, Target, ArrowLeft } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 const allCourses = [
@@ -202,11 +201,10 @@ export default function CoursesPage() {
             {allCourses.map((course) => (
               <div key={course.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-out cursor-pointer group border border-slate-200">
                 <div className="relative h-48 overflow-hidden">
-                  <Image
+                  <img
                     src={course.image}
                     alt={course.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/40 group-hover:to-transparent transition-all duration-300"></div>
                   <div className="absolute top-4 left-4">

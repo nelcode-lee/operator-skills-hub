@@ -1,5 +1,4 @@
 import { Award, Shield, CheckCircle, Star } from 'lucide-react'
-import Image from 'next/image'
 
 const accreditations = [
   {
@@ -53,15 +52,10 @@ export function Accreditations() {
             <div key={index} className="text-center group">
               <div className="w-24 h-24 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300">
                 {accreditation.image ? (
-                  <Image
+                  <img
                     src={accreditation.image}
                     alt={accreditation.name}
-                    width={80}
-                    height={80}
-                    className="object-contain"
-                    loading="lazy"
-                    quality={90}
-                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 20vw"
+                    className="w-20 h-20 object-contain"
                   />
                 ) : (
                   <accreditation.icon className="w-12 h-12 text-teal-700" />
