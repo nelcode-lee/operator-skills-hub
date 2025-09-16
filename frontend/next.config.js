@@ -10,7 +10,7 @@ const nextConfig = {
   },
   
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://operator-skills-hub.vercel.app',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://operator-skills-hub-backend.vercel.app',
   },
   
   async headers() {
