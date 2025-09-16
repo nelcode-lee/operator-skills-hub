@@ -2,8 +2,8 @@
  * API Configuration and utilities
  */
 
-// Use relative URLs for Vercel deployment (same domain)
-const API_BASE_URL = process.env.NODE_ENV === 'production' ? '' : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000');
+// Use Vercel backend URL for production, relative for development
+const API_BASE_URL = process.env.NODE_ENV === 'production' ? 'https://operator-skills-hub.vercel.app' : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000');
 
 // Debug logging
 console.log('API_BASE_URL:', API_BASE_URL);
