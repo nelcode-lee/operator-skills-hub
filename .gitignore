@@ -106,7 +106,7 @@ dist
 
 # Gatsby files
 .cache/
-public
+# public - needed for Vercel static assets
 
 # Storybook build outputs
 .out
@@ -134,7 +134,7 @@ temp/
 
 # Uploads and user content
 uploads/
-public/uploads/
+# public - needed for Vercel static assets/uploads/
 
 # Generated content
 generated/

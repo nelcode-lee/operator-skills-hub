@@ -1,0 +1,8 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="120" rx="8" fill="#DC2626"/>
+  <text x="60" y="40" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">CITB</text>
+  <text x="60" y="60" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="9">Construction Industry</text>
+  <text x="60" y="75" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="9">Training Board</text>
+  <polygon points="50,85 60,95 70,85" fill="white" opacity="0.3"/>
+</svg>
+
