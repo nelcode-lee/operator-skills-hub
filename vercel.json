@@ -1,17 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "frontend/$1"
-    }
-  ],
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "cd frontend && npm install",
+  "framework": "nextjs",
   "env": {
     "JWT_SECRET": "your-super-secret-jwt-key-change-in-production",
     "AWS_ACCESS_KEY_ID": "@aws_access_key_id",

@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Operator Skills Hub',
   description: 'Construction Training Management Platform with AI Integration',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
